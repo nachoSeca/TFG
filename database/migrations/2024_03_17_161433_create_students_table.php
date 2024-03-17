@@ -11,23 +11,27 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tutors', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 60);
             $table->string('apellidos', 100);
-            $table->string('email', 255);
-            $table->string('telefono_movil')->nullable();
-            $table->unsignedBigInteger('student_id');
+            $table->string('email', 100);
+            $table->string('telefono_movil');
+            $table->string('subir_cv', 50)->nullable();
+            $table->date('fecha_inicio_fct')->nullable();
+            $table->date('fecha_fin_fct')->nullable();
+            $table->unsignedBigInteger('course_id')->nullable();
+            $table->unsignedBigInteger('companie_id')->nullable();
             $table->unsignedBigInteger('tfg_id')->nullable();
             $table->unsignedBigInteger('tracking_id')->nullable();
 
             // Definición de las claves foráneas
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('companie_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('tfg_id')->references('id')->on('tfgs')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('tracking_id')->references('id')->on('trackings')->onDelete('cascade')->onUpdate('cascade');
        
             $table->timestamps();
-
         });
     }
 
@@ -36,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tutors');
+        Schema::dropIfExists('students');
     }
 };
