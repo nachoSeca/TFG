@@ -13,20 +13,17 @@ return new class extends Migration
     {
         Schema::create('tfgs', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 60);
-            $table->string('apellidos', 100);
-            $table->string('email', 255);
-            $table->string('telefono_movil')->nullable();
+            $table->string('nombre', 100);
+            $table->string('descripcion', 100);
+            $table->string('pdf_anteproyecto', 50)->nullable();
+            $table->string('pdf_proyecto_final', 50)->nullable();
             $table->unsignedBigInteger('student_id');
-            $table->unsignedBigInteger('tfg_id');
-            $table->unsignedBigInteger('tracking_id');
+            // $table->unsignedBigInteger('tutor_id');
+            $table->timestamps();
 
             // Definición de las claves foráneas
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('tfg_id')->references('id')->on('tfgs')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('tracking_id')->references('id')->on('trackings')->onDelete('cascade')->onUpdate('cascade');
-
-            $table->timestamps();
+            $table->foreign('student_id')->references('id')->on('students');
+            // $table->foreign('tutor_id')->references('id')->on('tutors');
         });
     }
 

@@ -20,18 +20,16 @@ return new class extends Migration
             $table->string('subir_cv', 50)->nullable();
             $table->date('fecha_inicio_fct')->nullable();
             $table->date('fecha_fin_fct')->nullable();
-            $table->unsignedBigInteger('course_id')->nullable();
-            $table->unsignedBigInteger('companie_id')->nullable();
-            $table->unsignedBigInteger('tfg_id')->nullable();
-            $table->unsignedBigInteger('tracking_id')->nullable();
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('companie_id');
+            // $table->unsignedBigInteger('tfg_id');
+            // $table->unsignedBigInteger('tracking_id');
 
             // Definición de las claves foráneas
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('companie_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('tfg_id')->references('id')->on('tfgs')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('tracking_id')->references('id')->on('trackings')->onDelete('cascade')->onUpdate('cascade');
-       
-            $table->timestamps();
+            // $table->foreign('tfg_id')->references('id')->on('tfgs')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('tracking_id')->references('id')->on('trackings')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

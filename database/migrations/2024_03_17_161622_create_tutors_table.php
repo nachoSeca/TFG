@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('email', 255);
             $table->string('telefono_movil')->nullable();
             $table->unsignedBigInteger('student_id');
-            $table->unsignedBigInteger('tfg_id')->nullable();
-            $table->unsignedBigInteger('tracking_id')->nullable();
+            $table->unsignedBigInteger('tfg_id');
+            $table->unsignedBigInteger('tracking_id');
 
             // Definición de las claves foráneas
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');

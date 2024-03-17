@@ -28,11 +28,11 @@ return new class extends Migration
             $table->date('fecha_ultimo_contacto')->nullable();
             $table->integer('plazas_disponibles');
             $table->string('observaciones', 255)->nullable();
-            $table->unsignedBigInteger('student_id')->nullable();
-            $table->unsignedBigInteger('course_id')->nullable();
+            /* $table->unsignedBigInteger('student_id'); */
+            $table->unsignedBigInteger('course_id');
 
             // Definición de las claves foráneas
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
