@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('observaciones', 255);
             $table->string('pdf_seguimiento', 50)->nullable();
             $table->unsignedBigInteger('student_id');
-            // $table->unsignedBigInteger('tutor_id');
+            $table->unsignedBigInteger('tutor_id');
             $table->unsignedBigInteger('type_id');
 
             // Definición de las claves foráneas

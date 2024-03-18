@@ -28,7 +28,7 @@ return new class extends Migration
             $table->date('fecha_ultimo_contacto')->nullable();
             $table->integer('plazas_disponibles');
             $table->string('observaciones', 255)->nullable();
-            /* $table->unsignedBigInteger('student_id'); */
+            $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('course_id');
 
             // Definición de las claves foráneas

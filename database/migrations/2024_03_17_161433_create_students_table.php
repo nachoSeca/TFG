@@ -22,8 +22,8 @@ return new class extends Migration
             $table->date('fecha_fin_fct')->nullable();
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('companie_id');
-            // $table->unsignedBigInteger('tfg_id');
-            // $table->unsignedBigInteger('tracking_id');
+            $table->unsignedBigInteger('tfg_id');
+            $table->unsignedBigInteger('tracking_id');
 
             // Definición de las claves foráneas
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
