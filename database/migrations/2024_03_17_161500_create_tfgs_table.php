@@ -23,7 +23,6 @@ return new class extends Migration
 
             // Definición de las claves foráneas
             $table->foreign('student_id')->references('id')->on('students');
-            // $table->foreign('tutor_id')->references('id')->on('tutors');
         });
     }
 

@@ -28,8 +28,6 @@ return new class extends Migration
             // Definición de las claves foráneas
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('companie_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
-            // $table->foreign('tfg_id')->references('id')->on('tfgs')->onDelete('cascade')->onUpdate('cascade');
-            // $table->foreign('tracking_id')->references('id')->on('trackings')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
