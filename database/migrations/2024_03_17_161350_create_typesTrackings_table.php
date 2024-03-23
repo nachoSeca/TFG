@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('trackings', function (Blueprint $table) {
-            //
-            $table->foreign('tutor_id')->references('id')->on('tutors')->onDelete('cascade')->onUpdate('cascade');
-
+        Schema::create('typesTrackings', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre', 50)->nullable();
+            $table->timestamps();
         });
     }
 
@@ -23,9 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('trackings', function (Blueprint $table) {
-            //
-            $table->dropForeign(['tutor_id']);
-        });
+        Schema::dropIfExists('types');
     }
 };
