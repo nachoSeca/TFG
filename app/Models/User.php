@@ -11,6 +11,24 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    // Relación N:1 de User a Role
+    // Un Usuario pertenece a un Rol
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+
+    // Relación 1:1 de User a Student
+    // Un estudiante solo tiene un usuario
+    public function student(){
+        return $this->hasOne(Student::class);
+    }
+
+    // Relación 1:1 de User a Tutor
+    // Un tutor solo tiene un usuario
+    public function tutor(){
+        return $this->hasOne(Tutor::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
