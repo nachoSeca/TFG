@@ -26,14 +26,14 @@ return new class extends Migration
             $table->unsignedBigInteger('tutor_id');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('course_id');
-            $table->unsignedBigInteger('tracking_id');
 
             // Definición de las claves foráneas
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('tutor_id')->references('id')->on('tutors')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('tracking_id')->references('id')->on('trackings')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->timestamps();
         });
     }
 

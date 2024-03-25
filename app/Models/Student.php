@@ -39,4 +39,6 @@ class Student extends Model
         return $this->hasMany(Tracking::class);
     }
 
+    protected $fillable = ['nombre', 'apellidos', 'email', 'telefono_movil', 'course_id', 'nota_media', 'company_id', 'subir_cv', 'fecha_inicio_fct', 'fecha_fin_fct', 'direccion_practicas', 'tutor_id'];
+
 }
