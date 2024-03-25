@@ -1,0 +1,353 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+* {
+	box-sizing: border-box;
+}
+body {
+
+  font-family: "Inter", sans-serif;
+}
+
+.container {
+  padding: 80px 120px;
+}
+
+/* TEXT MAIN */
+.text_main {
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* IMAGE USERS */
+.image_uses {
+  border: 10px solid transparent;
+  margin-bottom: 25px;
+  width: 60%;
+  opacity: 0.7;
+  border-radius: 50%;
+}
+.image_uses:hover {
+  border-color: #f1f1f1;
+}
+
+/* TITLE */
+
+#inicio {
+  background: hsl(0 0% 10%);
+  min-height: 100vh;
+}
+
+h1 {
+  --font-size: clamp(2rem, 8vw + 1rem, 12rem);
+  margin: 0;
+  color: hsl(0 0% 100%);
+  font-size: var(--font-size);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+::selection {
+  background: black;
+}
+
+h1 > span:first-of-type {
+  display: inline-block;
+}
+
+h1 > span:last-of-type {
+  position: absolute;
+  left: 98%;
+  bottom: 46%;
+  font-size: calc(var(--font-size) * 0.45);
+  opacity: 0.75;
+}
+
+h1 > span:nth-of-type(2) {
+  position: relative;
+  /*   background: radial-gradient(circle at center, red, blue) 50% 50% / 200cqh 200cqh no-repeat;
+  background-clip: text;
+  color: transparent; */
+  /*   animation: pop 1.75s infinite ease-in-out; */
+}
+
+.pops {
+  position: absolute;
+  inset: 0;
+  background: white;
+  mix-blend-mode: darken;
+  filter: brightness(2);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* h1 span:nth-of-type(2)::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  aspect-ratio: 1;
+  left: 0%;
+  translate: -50% 0;
+  background: radial-gradient(circle at center, hotpink, yellow) 50% 50% / 400% 400% no-repeat;
+  mix-blend-mode: color-dodge;
+  animation: pop 3.25s infinite ease-in-out;
+} */
+
+@keyframes pop {
+  50% {
+    background-size: 100% 100%;
+  }
+}
+
+.pop {
+  height: var(--size, 100%);
+  aspect-ratio: 1;
+  background: radial-gradient(hsl(var(--h) 100% 70%) 25%, transparent 50%);
+  position: absolute;
+  display: inline-block;
+  animation: scale var(--s, 2s) var(--d, 0s) infinite alternate;
+  left: var(--x, 0);
+  top: var(--y, 0);
+  scale: 0;
+  translate: -50% -50%;
+  mix-blend-mode: multiply;
+  filter: blur(2px);
+}
+
+.pop:nth-of-type(1) {
+  --x: 10%;
+  --y: 25%;
+  --h: 277;
+  --s2: 6;
+  --d: -0.25s;
+  --s: 6s;
+}
+
+.pop:nth-of-type(2) {
+  --x: 50%;
+  --y: 45%;
+  --h: 140;
+  --s2: 5;
+  --d: -0.75s;
+  --s: 5s;
+}
+.pop:nth-of-type(3) {
+  --x: 65%;
+  --y: 75%;
+  --h: 210;
+  --s2: 3;
+  --d: -0.5s;
+  --s: 3s;
+}
+.pop:nth-of-type(4) {
+  --x: 85%;
+  --y: 15%;
+  --h: 320;
+  --s2: 5;
+  --d: -1s;
+  --s: 2s;
+}
+.pop:nth-of-type(5) {
+  --x: 15%;
+  --y: 100%;
+  --h: 40;
+  --s2: 3;
+  --d: -1s;
+  --s: 2s;
+}
+
+@keyframes scale {
+  to {
+    scale: var(--s2);
+  }
+}
+
+/* BUTTON START SESSION */
+button {
+  font-size: 18px;
+  color: #e1e1e1;
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: color;
+}
+
+button:focus,
+button:hover {
+  color: #fff;
+}
+
+button:focus:after,
+button:hover:after {
+  width: 100%;
+  left: 0%;
+}
+
+button:after {
+  content: "";
+  pointer-events: none;
+  bottom: -2px;
+  left: 50%;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: #fff;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: width, left;
+}
+
+
+/* Floating Button */
+.Btn {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(#0C5582, #86A6C2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  position: fixed;
+  bottom: 10px;
+  right: 10px; /* Cambiado de 'left' a 'right' */
+  border: none;
+}
+
+
+
+.arrow path {
+  fill: white;
+}
+
+.text {
+  font-size: 0.7em;
+  width: 100px;
+  position: absolute;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: -18px;
+  opacity: 0;
+  transition-duration: .7s;
+}
+
+.Btn:hover .text {
+  opacity: 1;
+  transition-duration: .7s;
+}
+
+.Btn:hover .arrow {
+  animation: slide-in-bottom .7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes slide-in-bottom {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+
+
+/* CARD */
+
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  margin-left: 10%;
+  width: 320px;
+  padding: 2px;
+  border-radius: 24px;
+  overflow: hidden;
+  line-height: 1.6;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 34px;
+  border-radius: 22px;
+  color: #ffffff;
+  overflow: hidden;
+  background: #ffffff;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.content .heading {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.3;
+  z-index: 1;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.content .para {
+  z-index: 1;
+  opacity: 0.8;
+  font-size: 18px;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  height: 160%;
+  width: 160%;
+  border-radius: inherit;
+  background: #a5c8ca;
+  background: linear-gradient(to right, #a5c8ca, #e3e5d7);
+  transform-origin: center;
+  animation: moving 4.8s linear infinite paused;
+  transition: all 0.88s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card:hover::before {
+  animation-play-state: running;
+  z-index: -1;
+  width: 20%;
+}
+
+.card:hover .content .heading,
+.card:hover .content .para {
+  color: #000000;
+}
+
+.card:hover {
+  box-shadow: 0rem 6px 13px rgba(10, 60, 255, 0.1),
+    0rem 24px 24px rgba(10, 60, 255, 0.09),
+    0rem 55px 33px rgba(10, 60, 255, 0.05),
+    0rem 97px 39px rgba(10, 60, 255, 0.01), 0rem 152px 43px rgba(10, 60, 255, 0);
+  scale: 1.05;
+  color: #000000;
+}
+
+@keyframes moving {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
