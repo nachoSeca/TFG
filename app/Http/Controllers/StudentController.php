@@ -34,21 +34,40 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $request->validate([
             'nombre' => 'required',
             'apellidos' => 'required',
             'email' => 'required',
             'telefono_movil' => 'required',
             'nota_media' => 'required',
-            'subir_cv' => 'nullable',
+            'subir_cv' => 'nullable|file|mimes:pdf|max:2048',
             'fecha_inicio_fct' => 'nullable',
             'fecha_fin_fct' => 'nullable',
             'direccion_practicas' => 'nullable',
         ]);
-        Student::create($request->all());
-        return redirect()->route('students.index')->with('success', 'Estudiante actualizado exitosamente!');
+
+        // Verifica si se ha subido un archivo
+        if ($request->hasFile('subir_cv')) {
+            // Obtiene el nombre del archivo
+            $nombreArchivo = $request->file('subir_cv')->getClientOriginalName();
+
+            // Guarda el archivo en el almacenamiento (generalmente en storage/app/public)
+            $rutaArchivo = $request->file('subir_cv')->storeAs('public/cvs', $nombreArchivo);
+
+            // Agrega la ruta del archivo al array de datos del estudiante
+            $datosEstudiante = $request->all();
+            $datosEstudiante['subir_cv'] = 'cvs/' . $nombreArchivo;
+        } else {
+            // Si no se ha subido ningún archivo, deja el campo subir_cv como NULL
+            $datosEstudiante = $request->except('subir_cv');
+        }
+
+        // Crea el estudiante con los datos proporcionados
+        Student::create($datosEstudiante);
+
+        return redirect()->route('students.index')->with('success', 'Estudiante creado exitosamente!');
     }
+
 
     /**
      * Display the specified resource.
@@ -69,33 +88,55 @@ class StudentController extends Controller
         $companies = Company::all();
         $tutors = Tutor::all();
         return view('students.editStudent', compact('student', 'courses', 'companies', 'tutors'));
-
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-    {
-        //
-        $student = Student::find($id);
-        $request->validate([
-            'nombre' => 'required',
-            'apellidos' => 'required',
-            'email' => 'required',
-            'telefono_movil' => 'required',
-            'course_id' => 'required',
-            'nota_media' => 'required',
-            'company_id' => 'required',
-            'subir_cv' => 'nullable',
-            'fecha_inicio_fct' => 'nullable',
-            'fecha_fin_fct' => 'nullable',
-            'direccion_practicas' => 'nullable',
-            'tutor_id' => 'required',
-        ]);
-        $student->update($request->all());
-        return redirect()->route('students.index')->with('success', 'Estudiante actualizado exitosamente!');
+{
+    // Encuentra al estudiante por su ID
+    $student = Student::find($id);
+
+    // Validación de los datos recibidos
+    $request->validate([
+        'nombre' => 'required',
+        'apellidos' => 'required',
+        'email' => 'required',
+        'telefono_movil' => 'required',
+        'course_id' => 'required',
+        'nota_media' => 'required',
+        'company_id' => 'required',
+        'subir_cv' => 'nullable|file|mimes:pdf|max:2048',
+        'fecha_inicio_fct' => 'nullable',
+        'fecha_fin_fct' => 'nullable',
+        'direccion_practicas' => 'nullable',
+        'tutor_id' => 'required',
+    ]);
+
+    // Verifica si se ha subido un nuevo archivo
+    if ($request->hasFile('subir_cv')) {
+        // Obtiene el nombre del archivo
+        $nombreArchivo = $request->file('subir_cv')->getClientOriginalName();
+
+        // Guarda el archivo en el almacenamiento (generalmente en storage/app/public)
+        $rutaArchivo = $request->file('subir_cv')->storeAs('public/cvs', $nombreArchivo);
+
+        // Actualiza la ruta del archivo en los datos del estudiante
+        $datosEstudiante = $request->all();
+        $datosEstudiante['subir_cv'] = 'cvs/' . $nombreArchivo;
+
+        // Actualiza el estudiante con los datos modificados
+        $student->update($datosEstudiante);
+    } else {
+        // Si no se ha subido ningún archivo, deja el campo subir_cv como NULL
+        $student->update($request->except('subir_cv'));
     }
+
+    // Redirecciona a la página de índice de estudiantes con un mensaje de éxito
+    return redirect()->route('students.index')->with('success', 'Estudiante actualizado exitosamente!');
+}
+
 
     /**
      * Remove the specified resource from storage.

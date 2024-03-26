@@ -80,6 +80,11 @@
                                 <a href="{{ route('students.show', $student->id) }}" class="btn">
                                     <img src="image/delete.png" alt="" class="icons">
                                 </a>
+                                @if ($student->subir_cv)
+                                    <a href="{{ asset('storage/' . $student->subir_cv) }}" class="btn" target="_blank">
+                                        <img src="image/pdf.png" alt="" class="icons">
+                                    </a>
+                                @endif
                                 {{-- <a href="{{ route('clientes.confirmar_borrado', $customer->id) }}" class="btn btn-danger">Eliminar</a> --}}
 
                                 {{-- <form action="{{ route('students.delete', $student) }}" method="post" class="d-inline">

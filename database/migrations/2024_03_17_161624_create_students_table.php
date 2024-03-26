@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email', 100);
             $table->string('telefono_movil');
             $table->float('nota_media');
-            $table->string('subir_cv', 50)->nullable();
+            $table->string('subir_cv', 255)->nullable();
             $table->date('fecha_inicio_fct')->nullable();
             $table->date('fecha_fin_fct')->nullable();
             $table->string('direccion_practicas', 100)->nullable();
