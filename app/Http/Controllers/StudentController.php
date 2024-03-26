@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\Course;
 use App\Models\Company;
 use App\Models\Tutor;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -26,7 +27,12 @@ class StudentController extends Controller
     public function create()
     {
         //
-        return view('students.createStudent');
+        $courses = Course::all();
+        $companies = Company::all();
+        $tutors = Tutor::all();
+        $users = User::all();
+
+        return view('students.createStudent', compact('courses', 'companies', 'tutors', 'users'));
     }
 
     /**
@@ -38,12 +44,16 @@ class StudentController extends Controller
             'nombre' => 'required',
             'apellidos' => 'required',
             'email' => 'required',
+            'user_id' => 'required',
             'telefono_movil' => 'required',
+            'course_id' => 'required',
             'nota_media' => 'required',
+            'company_id' => 'required',
             'subir_cv' => 'nullable|file|mimes:pdf|max:2048',
             'fecha_inicio_fct' => 'nullable',
             'fecha_fin_fct' => 'nullable',
             'direccion_practicas' => 'nullable',
+            'tutor_id' => 'required',
         ]);
 
         // Verifica si se ha subido un archivo
@@ -94,55 +104,62 @@ class StudentController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-{
-    // Encuentra al estudiante por su ID
-    $student = Student::find($id);
+    {
+        // Encuentra al estudiante por su ID
+        $student = Student::find($id);
 
-    // Validación de los datos recibidos
-    $request->validate([
-        'nombre' => 'required',
-        'apellidos' => 'required',
-        'email' => 'required',
-        'telefono_movil' => 'required',
-        'course_id' => 'required',
-        'nota_media' => 'required',
-        'company_id' => 'required',
-        'subir_cv' => 'nullable|file|mimes:pdf|max:2048',
-        'fecha_inicio_fct' => 'nullable',
-        'fecha_fin_fct' => 'nullable',
-        'direccion_practicas' => 'nullable',
-        'tutor_id' => 'required',
-    ]);
+        // Validación de los datos recibidos
+        $request->validate([
+            'nombre' => 'required',
+            'apellidos' => 'required',
+            'email' => 'required',
+            'telefono_movil' => 'required',
+            'course_id' => 'required',
+            'nota_media' => 'nullable',
+            'company_id' => 'nullable',
+            'subir_cv' => 'nullable|file|mimes:pdf|max:2048',
+            'fecha_inicio_fct' => 'nullable',
+            'fecha_fin_fct' => 'nullable',
+            'direccion_practicas' => 'nullable',
+            'tutor_id' => 'nullable',
+        ]);
 
-    // Verifica si se ha subido un nuevo archivo
-    if ($request->hasFile('subir_cv')) {
-        // Obtiene el nombre del archivo
-        $nombreArchivo = $request->file('subir_cv')->getClientOriginalName();
+        // Verifica si se ha subido un nuevo archivo
+        if ($request->hasFile('subir_cv')) {
+            // Obtiene el nombre del archivo
+            $nombreArchivo = $request->file('subir_cv')->getClientOriginalName();
 
-        // Guarda el archivo en el almacenamiento (generalmente en storage/app/public)
-        $rutaArchivo = $request->file('subir_cv')->storeAs('public/cvs', $nombreArchivo);
+            // Guarda el archivo en el almacenamiento (generalmente en storage/app/public)
+            $rutaArchivo = $request->file('subir_cv')->storeAs('public/cvs', $nombreArchivo);
 
-        // Actualiza la ruta del archivo en los datos del estudiante
-        $datosEstudiante = $request->all();
-        $datosEstudiante['subir_cv'] = 'cvs/' . $nombreArchivo;
+            // Actualiza la ruta del archivo en los datos del estudiante
+            $datosEstudiante = $request->all();
+            $datosEstudiante['subir_cv'] = 'cvs/' . $nombreArchivo;
 
-        // Actualiza el estudiante con los datos modificados
-        $student->update($datosEstudiante);
-    } else {
-        // Si no se ha subido ningún archivo, deja el campo subir_cv como NULL
-        $student->update($request->except('subir_cv'));
+            // Actualiza el estudiante con los datos modificados
+            $student->update($datosEstudiante);
+        } else {
+            // Si no se ha subido ningún archivo, deja el campo subir_cv como NULL
+            $student->update($request->except('subir_cv'));
+        }
+
+        // Redirecciona a la página de índice de estudiantes con un mensaje de éxito
+        return redirect()->route('students.index')->with('success', 'Estudiante actualizado exitosamente!');
     }
-
-    // Redirecciona a la página de índice de estudiantes con un mensaje de éxito
-    return redirect()->route('students.index')->with('success', 'Estudiante actualizado exitosamente!');
-}
 
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy($id)
     {
-        //
+        $student = Student::find($id);
+        $student->delete();
+        return redirect()->route('students.index')->with('success', 'Estudiante eliminado exitosamente!');
+    }
+
+    public function formDestroy(Student $student)
+    {
+        return view('students.deleteStudent', compact('student'));
     }
 }

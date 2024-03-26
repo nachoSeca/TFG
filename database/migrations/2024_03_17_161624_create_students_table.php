@@ -17,14 +17,14 @@ return new class extends Migration
             $table->string('apellidos', 100);
             $table->string('email', 100);
             $table->string('telefono_movil');
-            $table->float('nota_media');
+            $table->float('nota_media')->nullable();
             $table->string('subir_cv', 255)->nullable();
             $table->date('fecha_inicio_fct')->nullable();
             $table->date('fecha_fin_fct')->nullable();
             $table->string('direccion_practicas', 100)->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('tutor_id');
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('tutor_id')->nullable();
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->unsignedBigInteger('course_id');
 
             // Definición de las claves foráneas

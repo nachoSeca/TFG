@@ -111,7 +111,7 @@ id="floating-button"
     <p><strong>Tutores</strong></p>
     <br />
     <a href="#infoTutores" data-bs-toggle="collapse">
-      <img src="img/teacher.png" alt="Profesor" class="image_uses" />
+      <img src="image/teacher.png" alt="Profesor" class="image_uses" />
     </a>
     <div id="infoTutores" class="collapse">
       <p>Los tutores pueden gestionar las prácticas de sus alumnos</p>
@@ -121,7 +121,7 @@ id="floating-button"
     <p><strong>Alumnos</strong></p>
     <br />
     <a href="#infoAlumnos" data-bs-toggle="collapse">
-      <img src="img/Studying.png" alt="Estudiante" class="image_uses" />
+      <img src="/image/Studying.png" alt="Estudiante" class="image_uses" />
     </a>
     <div id="infoAlumnos" class="collapse">
       <p>
@@ -133,7 +133,7 @@ id="floating-button"
     <p><strong>Empresas</strong></p>
     <br />
     <a href="#infoEmpresas" data-bs-toggle="collapse">
-      <img src="img/company.png" alt="Empresa" class="image_uses" />
+      <img src="image/company.png" alt="Empresa" class="image_uses" />
     </a>
     <div id="infoEmpresas" class="collapse">
       <p>Las empresas pueden publicar prácticas para los alumnos</p>

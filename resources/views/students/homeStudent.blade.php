@@ -67,31 +67,31 @@
                             <td>{{ $student->course->nombre }}</td>
                             <td>{{ $student->nota_media }}</td>
                             <td>{{ $student->subir_cv }}</td>
-                            <td>{{ $student->company->nombre }}</td>
+                            <td>{{ $student->company->nombre  ?? '-'}}</td>
                             <td>{{ $student->fecha_inicio_fct }}</td>
                             <td>{{ $student->fecha_fin_fct }}</td>
-                            <td>{{ $student->direccion_practicas }}</td>
-                            <td>{{ $student->tutor->nombre }}</td>
+                            <td>{{ $student->direccion_practicas  ?? '-' }}</td>
+                            <td>{{ $student->tutor->nombre ?? '-' }}</td>
+
 
                             <td>
                                 <a href="{{ route('students.edit', $student->id) }}" class="btn">
                                     <img src="image/edit.png" alt="" class="icons">
                                 </a>
-                                <a href="{{ route('students.show', $student->id) }}" class="btn">
-                                    <img src="image/delete.png" alt="" class="icons">
-                                </a>
+
+                                <form action="{{ route('students.delete', $student) }}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('GET')
+                                    <button type="submit" class="btn">
+                                        <img src="image/delete.png" alt="" class="icons">
+                                    </button>
+                                </form>
                                 @if ($student->subir_cv)
                                     <a href="{{ asset('storage/' . $student->subir_cv) }}" class="btn" target="_blank">
                                         <img src="image/pdf.png" alt="" class="icons">
                                     </a>
                                 @endif
-                                {{-- <a href="{{ route('clientes.confirmar_borrado', $customer->id) }}" class="btn btn-danger">Eliminar</a> --}}
 
-                                {{-- <form action="{{ route('students.delete', $student) }}" method="post" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                                </form> --}}
                             </td>
                         </tr>
                     @endforeach

@@ -8,6 +8,7 @@ use App\Http\Controllers\TutorController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Models\Student;
 
 Route::get('/', function () {
     return view('home');
@@ -22,3 +23,7 @@ Route::resources([
     'users' => UserController::class,
     'roles' => RoleController::class,
 ]);
+
+// Ruta para eliminar un estudiante con un formulario de confirmación
+Route::get('/students/{student}/delete', [StudentController::class, 'formDestroy'])->name('students.delete');
+
