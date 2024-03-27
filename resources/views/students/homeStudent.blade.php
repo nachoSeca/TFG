@@ -41,11 +41,12 @@
                 <div class="paginar">
                     {{ $students->links('pagination::bootstrap-5') }}
                 </div>
-                <table class="table table-bordered text-white">
+                <table class="table table-striped">
                     <tr class="text-secondary">
                         <th>Nombre</th>
                         <th>Apellidos</th>
                         <th>Email</th>
+                        <th>Usuario</th>
                         <th>Móvil</th>
                         <th>Curso</th>
                         <th>Nota media</th>
@@ -63,6 +64,7 @@
                             <td class="fw-bold">{{ $student->nombre }}</td>
                             <td>{{ $student->apellidos }}</td>
                             <td>{{ $student->email }}</td>
+                            <td>{{ $student->user->name }}</td>
                             <td>{{ $student->telefono_movil }}</td>
                             <td>{{ $student->course->nombre }}</td>
                             <td>{{ $student->nota_media }}</td>

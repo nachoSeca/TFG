@@ -47,13 +47,13 @@ class StudentController extends Controller
             'user_id' => 'required',
             'telefono_movil' => 'required',
             'course_id' => 'required',
-            'nota_media' => 'required',
-            'company_id' => 'required',
+            'nota_media' => 'nullable',
+            'company_id' => 'nullable',
             'subir_cv' => 'nullable|file|mimes:pdf|max:2048',
             'fecha_inicio_fct' => 'nullable',
             'fecha_fin_fct' => 'nullable',
             'direccion_practicas' => 'nullable',
-            'tutor_id' => 'required',
+            'tutor_id' => 'nullable',
         ]);
 
         // Verifica si se ha subido un archivo
@@ -97,7 +97,8 @@ class StudentController extends Controller
         $courses = Course::all();
         $companies = Company::all();
         $tutors = Tutor::all();
-        return view('students.editStudent', compact('student', 'courses', 'companies', 'tutors'));
+        $users = User::all();
+        return view('students.editStudent', compact('student', 'courses', 'companies', 'tutors', 'users'));
     }
 
     /**
