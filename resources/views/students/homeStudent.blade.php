@@ -37,7 +37,7 @@
                 </div>
             @endif
 
-            <div class="col-12 mt-4">
+            <div class="col-12 mt-4 table-responsive">
                 <div class="paginar">
                     {{ $students->links('pagination::bootstrap-5') }}
                 </div>

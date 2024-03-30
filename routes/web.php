@@ -26,4 +26,7 @@ Route::resources([
 
 // Ruta para eliminar un estudiante con un formulario de confirmación
 Route::get('/students/{student}/delete', [StudentController::class, 'formDestroy'])->name('students.delete');
+// Ruta para eliminar un tutor con un formulario de confirmación
+Route::get('/tutors/{tutor}/delete', [TutorController::class, 'formDestroy'])->name('tutors.delete');
+
 

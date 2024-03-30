@@ -114,6 +114,7 @@ class StudentController extends Controller
             'nombre' => 'required',
             'apellidos' => 'required',
             'email' => 'required',
+            'user_id' => 'required',
             'telefono_movil' => 'required',
             'course_id' => 'required',
             'nota_media' => 'nullable',
