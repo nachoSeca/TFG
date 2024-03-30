@@ -21,5 +21,7 @@ class Company extends Model
         return $this->belongsTo(Course::class);
     }
 
+    protected $fillable = ['nombre', 'direccion', 'codigo_postal', 'municipio', 'localidad', 'provincia', 'web', 'nombre_contacto', 'apellido_contacto', 'email_contacto', 'telefono_fijo', 'telefono_movil', 'fecha_ultimo_contacto', 'plazas_disponibles', 'observaciones', 'course_id'];
+
     
 }
