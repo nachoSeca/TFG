@@ -11,13 +11,13 @@
     {{-- FAVICON --}}
     <link rel="icon" href="{{ asset('favicon.ico') }}">
 
-    {{-- Tabulator --}}
+    {{-- Tabulator
     <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
 
     {{-- DATATABLES --}}
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
-    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script> --}}
 
     {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/orderFilter.css') }}">
@@ -30,12 +30,13 @@
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50" class="animated">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top"  id="navbar">
         <a class="navbar-brand d-flex align-items-center" href="{{ route('tutors.index') }}">
-            <img src="/image/logo.png" alt="Logo" width="50" height="40" class="d-inline-block align-text-top">
+            <img src="/image/logo.png" alt="Logo" width="50" height="40"
+                class="d-inline-block align-text-top">
             <span class="ms-2">PractiHub</span>
         </a>
-        
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -43,18 +44,19 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link {{ Route::currentRouteName() == 'tutors.index' ? 'active' : '' }}" aria-current="page" href="{{ route('tutors.index') }}">Tutores</a>
+                    <a class="nav-link {{ Route::currentRouteName() == 'tutors.index' ? 'active' : '' }}"
+                        aria-current="page" href="{{ route('tutors.index') }}">Tutores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Route::currentRouteName() == 'students.index' ? 'active' : '' }}" href="{{ route('students.index') }}">Estudiantes</a>
+                    <a class="nav-link {{ Route::currentRouteName() == 'students.index' ? 'active' : '' }}"
+                        href="{{ route('students.index') }}">Estudiantes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Route::currentRouteName() == 'companies.index' ? 'active' : '' }}" href="{{ route('companies.index') }}">Empresas</a>
+                    <a class="nav-link {{ Route::currentRouteName() == 'companies.index' ? 'active' : '' }}"
+                        href="{{ route('companies.index') }}">Empresas</a>
                 </li>
             </ul>
             <form class="d-flex" role="search">
-                {{-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button> --}}
                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Búsqueda por nombre..."> <br>
 
             </form>
