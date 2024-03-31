@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.noMenu')
 
 @section('styles')
     <link rel="stylesheet" href="css/login/login.css">
@@ -43,7 +43,7 @@
                                 </svg>
                                 <span>Log in with Apple</span>
                             </div>
-                            <div class="google-login-button">
+                            <a href="{{ route('login-google') }}" class="google-login-button">
                                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" x="0px"
                                     y="0px" class="google-icon" viewBox="0 0 48 48" height="1em" width="1em"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -62,7 +62,7 @@
                                     </path>
                                 </svg>
                                 <span>Log in with Google</span>
-                            </div>
+                            </a>
                         </div>
                     </div>
 
