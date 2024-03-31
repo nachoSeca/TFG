@@ -24,11 +24,13 @@ Route::resources([
     'roles' => RoleController::class,
 ]);
 
+// Ruta para el login en la aplicación
+Route::view('/login', 'login')->name('login');
+
+
 // Ruta para eliminar un estudiante con un formulario de confirmación
 Route::get('/students/{student}/delete', [StudentController::class, 'formDestroy'])->name('students.delete');
 // Ruta para eliminar un tutor con un formulario de confirmación
 Route::get('/tutors/{tutor}/delete', [TutorController::class, 'formDestroy'])->name('tutors.delete');
 // Ruta para eliminar una empresa con un formulario de confirmación
 Route::get('/companies/{company}/delete', [CompanyController::class, 'formDestroy'])->name('companies.delete');
-
-
