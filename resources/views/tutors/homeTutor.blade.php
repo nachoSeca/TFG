@@ -8,12 +8,12 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1>Listado de tutores</h1>
+        <h1 class="text-center">Listado de tutores</h1>
 
         <div class="row">
             <div class="col-12">
 
-                <div class="mt-4">
+                <div>
                     <a href="{{ route('tutors.create') }}" class="form-btn">Añadir tutor</a>
                 </div>
             </div>
@@ -37,7 +37,6 @@
             @endif
 
             <div class="col-12 mt-4 table-responsive">
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Búsqueda por nombre...">            <br>
 
                 <div class="paginar">
                     {{ $tutors->links('pagination::bootstrap-5') }}
@@ -45,10 +44,11 @@
                 <table class="table table-striped" id="myTable">
                     <tr class="text-secondary">
                         <th>Nombre <img onclick="sortTable(0)" src="/image/order.png" alt="order" class="order"></th>
-                        <th>Apellidos <img onclick="sortTable(1)" src="/image/order.png" alt="order" class="order"</th>
+                        <th>Apellidos <img onclick="sortTable(1)" src="/image/order.png" alt="order" class="order"></th>
                         <th>Email</th>
                         <th>Usuario</th>
                         <th>Móvil</th>
+                        <th>Acciones</th>
 
 
 

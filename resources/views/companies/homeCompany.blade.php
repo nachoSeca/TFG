@@ -7,13 +7,13 @@
 @section('title', 'Empresas')
 
 @section('content')
-    <div class="container-fluid mt-5">
-        <h1>Listado de empresas</h1>
+    <div class="container-fluid">
+        <h1 class="text-center">Listado de empresas</h1>
 
         <div class="row">
             <div class="col-12">
 
-                <div class="mt-2">
+                <div>
                     <a href="{{ route('companies.create') }}" class="form-btn">Añadir empresa</a>
                 </div>
             </div>
@@ -41,12 +41,12 @@
                 <div class="paginar">
                     {{ $companies->links('pagination::bootstrap-5') }}
                 </div>
-                <table class="table table-striped">
+                <table class="table table-striped" id="myTable">
                     <tr class="text-secondary">
-                        <th>Nombre</th>
-                        <th>Dirección</th>
+                        <th>Nombre <img onclick="sortTable(0)" src="/image/order.png" alt="order" class="order"></th>
+                        <th>Dirección </th>
                         <th>C.P.</th>
-                        <th>Municipio</th>
+                        <th>Municipio <img onclick="sortTable(1)" src="/image/order.png" alt="order" class="order"></th>
                         <th>Localidad</th>
                         <th>Provincia</th>
                         <th>Web</th>
@@ -59,6 +59,7 @@
                         <th>Plazas disponibles</th>
                         <th>Observaciones</th>
                         <th>Alumnos de...</th>
+                        <th>Acciones</th>
 
 
                     </tr>
