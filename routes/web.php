@@ -9,6 +9,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\LoginController;
 use App\Models\User;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,18 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('home');
 });
+
+// Rutas para el login 
+Route::view('/login', 'login/login')->name('login');
+Route::view('/registro', 'login/register')->name('registro');
+Route::view('/privada', 'secret')->middleware('auth')->name('privada');
+
+
+Route::post('/validar-registro', [LoginController::class, 'register'])->name('validar-registro');
+Route::post('/inicia-sesion', [LoginController::class, 'login'])->name('inicia-sesion');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Rutas para el login con Google
 
 Route::get('/login-google', function () {
     return Socialite::driver('google')->redirect();
@@ -45,6 +58,8 @@ Route::get('/google-callback', function () {
     // $user->token
 });
 
+// Fin de las rutas para el login con Google
+
 Route::resources([
     'students' => StudentController::class,
     'tutors' => TutorController::class,
@@ -56,7 +71,7 @@ Route::resources([
 ]);
 
 // Ruta para el login en la aplicación
-Route::view('/login', 'login')->name('login');
+// Route::view('/login', 'login')->name('login');
 
 
 // Ruta para eliminar un estudiante con un formulario de confirmación

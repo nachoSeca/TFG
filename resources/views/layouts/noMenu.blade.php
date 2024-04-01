@@ -22,6 +22,8 @@
     {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/orderFilter.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/login/login.css') }}">
+
 
 
     @yield('styles')

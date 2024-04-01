@@ -1,12 +1,12 @@
 // SEARCHING TUTORS BY NAME
 function myFunction() {
     // Declare variables
-    var input, filter, table, tr, td, i, txtValue;
+    let input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
-    var noResultsMessage = document.getElementById("noResultsMessage");
+    let noResultsMessage = document.getElementById("noResultsMessage");
 
     // Remove existing no results message if present
     if (noResultsMessage) {
@@ -14,7 +14,7 @@ function myFunction() {
     }
 
     // Loop through all table rows, and hide those who don't match the search query
-    var resultsFound = false;
+    let resultsFound = false;
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[0];
         if (td) {
@@ -42,7 +42,7 @@ function myFunction() {
 
 // FILTERING TUTORS BY HEADING
 function sortTable(n) {
-    var table,
+    let table,
         rows,
         switching,
         i,
@@ -106,18 +106,22 @@ function sortTable(n) {
 
 // TRANSITION FOR NAVBAR
 window.addEventListener('scroll', function() {
-    var navbar = document.getElementById('navbar');
+    let navbar = document.getElementById('navbar');
+    let welcome = document.querySelector('.welcome');
+
 
     if (window.scrollY > 10) { // Cambia 50 al valor que desees
         navbar.classList.add('navbar-scrolled');
         navbar.setAttribute('data-bs-theme', 'dark');
         navbar.style.backdropFilter = 'blur(10px)'; // Ajusta el valor de desenfoque según sea necesario
+        welcome.style.color = 'white';  
 
 
     } else {
         navbar.classList.remove('navbar-scrolled');
         navbar.removeAttribute('data-bs-theme');
         navbar.style.backdropFilter = 'none'; // Elimina el desenfoque cuando no se hace scroll
+        welcome.style.color = 'black';
 
 
     }

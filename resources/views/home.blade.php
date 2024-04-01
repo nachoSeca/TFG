@@ -4,6 +4,7 @@
 
 @section('content')
     <link rel="stylesheet" href="css/style.css">
+    
 
     <!-- Floating Button -->
     <button onclick="window.location.href='#section1'" class="Btn" id="floating-button">
@@ -42,7 +43,7 @@
                         </button>
                     </div>
 
-                    
+
                     <div class="col-6 d-flex justify-content-center">
                         <button onclick="window.location.href='{{ route('login') }}'">Inicio Sesión</button>
                     </div>

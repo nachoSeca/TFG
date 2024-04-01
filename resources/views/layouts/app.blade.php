@@ -30,7 +30,7 @@
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50" class="animated">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top"  id="navbar">
+    <nav class="navbar navbar-expand-lg sticky-top" id="navbar">
         <a class="navbar-brand d-flex align-items-center" href="{{ route('tutors.index') }}">
             <img src="/image/logo.png" alt="Logo" width="50" height="40"
                 class="d-inline-block align-text-top">
@@ -42,7 +42,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                 <li class="nav-item">
                     <a class="nav-link {{ Route::currentRouteName() == 'tutors.index' ? 'active' : '' }}"
                         aria-current="page" href="{{ route('tutors.index') }}">Tutores</a>
@@ -55,12 +55,27 @@
                     <a class="nav-link {{ Route::currentRouteName() == 'companies.index' ? 'active' : '' }}"
                         href="{{ route('companies.index') }}">Empresas</a>
                 </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Búsqueda por nombre..."> <br>
 
+            </ul>
+
+            <form class="d-flex ms-auto align-items-center" role="search">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Búsqueda por nombre...">
             </form>
+            <div class="me-2">
+                <span class="nav-link welcome">
+                    Bienvenido @auth
+                        {{ auth()->user()->name }}
+                    @endauth
+                </span>
+            </div>
+            <div class="me-3">
+                <a href="{{ route('logout') }}"><button type="button"
+                        class="btn btn-outline-primary">Salir</button></a>
+            </div>
+
+
         </div>
+
     </nav>
     {{-- End Navbar --}}
     @yield('content')
