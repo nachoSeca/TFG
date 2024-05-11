@@ -16,14 +16,12 @@ return new class extends Migration
             $table->date('fecha_seguimiento');
             $table->string('observaciones', 255);
             $table->string('pdf_seguimiento', 50)->nullable();
-            $table->unsignedBigInteger('tutor_id');
-            $table->unsignedBigInteger('type_id');
-            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('tutor_id')->nullable();
+            $table->unsignedBigInteger('student_id')->nullable();
 
             // Definición de las claves foráneas
-            $table->foreign('tutor_id')->references('id')->on('tutors')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('type_id')->references('id')->on('typesTrackings')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('tutor_id')->references('id')->on('tutors')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();
         });
     }

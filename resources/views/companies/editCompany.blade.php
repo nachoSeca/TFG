@@ -1,14 +1,14 @@
-@extends('layouts.app')
 
-@section('styles')
-    <link rel="stylesheet" type="text/css" href="/css/companies/company.css">
-    <link rel="stylesheet" type="text/css" href="/css/tutors/createTutor.css">
-@endsection
+@extends('adminlte::page')
 
-@section('title', 'Editar empresa')
+@section('title', 'Dashboard')
+
+@section('content_header')
+    {{-- <h1>Listado de usuarios</h1> --}}
+@stop
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container">
 
         <h1>Editar empresa</h1>
         <div class="row">
@@ -186,15 +186,16 @@
                 </div>
         </div>
         </form>
-    </div>
+    @stop
+
+    @section('css')
+        <link rel="stylesheet" type="text/css" href="/css/users/user.css">
+        <link rel="stylesheet" type="text/css" href="/css/companies/company.css">
+        <link rel="stylesheet" type="text/css" href="/css/tutors/createTutor.css">
 
 
-@endsection
+    @stop
 
-@section('footer')
+    @section('js')
 
-@endsection
-
-@section('scripts')
-
-@endsection
+    @stop

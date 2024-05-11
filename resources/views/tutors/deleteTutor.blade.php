@@ -1,11 +1,18 @@
-@extends('layouts.app')
 
-@section('title', 'Confirmación de borrado')
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+    {{-- <h1>Listado de usuarios</h1> --}}
+@stop
 
 @section('content')
-    <h1>Eliminar tutor</h1>
+    <div class="container">
 
-    <p>¿Estás seguro de que quieres eliminar al tutor/a <strong>{{ $tutor->nombre }}</strong>?</p>
+        <h1>Eliminar tutor</h1>
+
+    <p>¿Estás seguro de que quieres eliminar al tutor/a <strong>{{ $tutor->name }}</strong>?</p>
 
     <form method="POST" action="{{ route('tutors.destroy', $tutor->id) }}">
         @method('DELETE')
@@ -14,12 +21,15 @@
         <button type="submit" class="btn btn-danger">Eliminar</button>
         <a href="{{ route('tutors.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
-@endsection
+    @stop
 
-@section('footer')
+    @section('css')
+        <link rel="stylesheet" type="text/css" href="/css/users/user.css">
+        <link rel="stylesheet" type="text/css" href="/css/tracking.css">
 
-@endsection
 
-@section('scripts')
+    @stop
 
-@endsection
+    @section('js')
+
+    @stop

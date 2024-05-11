@@ -43,28 +43,38 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
+                {{-- @role('admin') --}}
                 <li class="nav-item">
                     <a class="nav-link {{ Route::currentRouteName() == 'tutors.index' ? 'active' : '' }}"
                         aria-current="page" href="{{ route('tutors.index') }}">Tutores</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ Route::currentRouteName() == 'students.index' ? 'active' : '' }}"
-                        href="{{ route('students.index') }}">Estudiantes</a>
+                    href="{{ route('students.index') }}">Estudiantes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ Route::currentRouteName() == 'companies.index' ? 'active' : '' }}"
                         href="{{ route('companies.index') }}">Empresas</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}"
+                        href="{{ route('users.index') }}">Usuarios</a>
+                </li>
+                {{-- @endrole --}}
 
             </ul>
 
-            <form class="d-flex ms-auto align-items-center" role="search">
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Búsqueda por nombre...">
-            </form>
             <div class="me-2">
                 <span class="nav-link welcome">
-                    Bienvenido @auth
-                        {{ auth()->user()->name }}
+                    @auth
+                        @if (filter_var(auth()->user()->avatar, FILTER_VALIDATE_URL))
+                            <!-- Si el avatar es una URL, asumimos que es un usuario de Google -->
+                            <img src="{{ auth()->user()->avatar }}" alt="Avatar" width="50" height="50">
+                        @else
+                            <!-- Si no es una URL, asumimos que es un usuario normal y la imagen está en el storage -->
+                            <img src="{{ asset('storage/avatar/' . auth()->user()->avatar) }}" alt="Avatar" width="50" height="50">
+                        @endif
+                        Bienvenido {{ auth()->user()->name }}
                     @endauth
                 </span>
             </div>

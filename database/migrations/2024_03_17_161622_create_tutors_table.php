@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tutors', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 60);
-            $table->string('apellidos', 100);
+            $table->string('name', 60);
+            $table->string('apellidos', 100)->default('');
             $table->string('email', 255);
             $table->string('telefono_movil')->nullable();
             $table->unsignedBigInteger('user_id');

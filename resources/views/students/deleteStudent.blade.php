@@ -1,25 +1,34 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('title', 'Confirmación de borrado')
+@section('title', 'Dashboard')
+
+@section('content_header')
+    {{-- <h1>Listado de usuarios</h1> --}}
+@stop
 
 @section('content')
-    <h1>Eliminar estudiante</h1>
+    <div class="container">
 
-    <p>¿Estás seguro de que quieres eliminar al estudiante <strong>{{ $student->nombre }}</strong>?</p>
+        <h1>Eliminar estudiante</h1>
 
-    <form method="POST" action="{{ route('students.destroy', $student->id) }}">
-        @method('DELETE')
-        @csrf
+        <p>¿Estás seguro de que quieres eliminar al estudiante <strong>{{ $student->name }}</strong>?</p>
 
-        <button type="submit" class="btn btn-danger">Eliminar</button>
-        <a href="{{ route('students.index') }}" class="btn btn-secondary">Cancelar</a>
-    </form>
-@endsection
+        <form method="POST" action="{{ route('students.destroy', $student->id) }}">
+            @method('DELETE')
+            @csrf
 
-@section('footer')
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <a href="{{ route('students.index') }}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    @stop
 
-@endsection
+    @section('css')
+        <link rel="stylesheet" type="text/css" href="/css/users/user.css">
+        <link rel="stylesheet" type="text/css" href="/css/tracking.css">
 
-@section('scripts')
 
-@endsection
+    @stop
+
+    @section('js')
+
+    @stop

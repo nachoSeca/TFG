@@ -21,11 +21,7 @@ class Tracking extends Model
         return $this->belongsTo(Tutor::class);
     }
 
-    // Relación 1:N de Tracking a TypeTracking
-    // Un seguimiento pertenece a un tipo de seguimiento
-    public function typeTracking(){
-        return $this->belongsTo(TypeTracking::class);
-    }
+    protected $fillable = ['fecha_seguimiento', 'observaciones', 'pdf_seguimiento', 'tutor_id', 'student_id'];
 
     
 }

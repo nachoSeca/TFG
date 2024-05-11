@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Tutor;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -17,7 +18,7 @@ class StudentController extends Controller
     public function index()
     {
         //
-        $students = Student::orderBy('nombre', 'ASC')->paginate(10);
+        $students = Student::orderBy('name', 'ASC')->paginate(10);
         return view('students.homeStudent', compact('students'));
     }
 
@@ -41,7 +42,7 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required',
+            'name' => 'required',
             'apellidos' => 'required',
             'email' => 'required',
             'user_id' => 'required',
@@ -82,10 +83,29 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function show()
     {
-        //
+        $user = auth()->user();
+        if (!$user) {
+            // Manejar el caso cuando el usuario no está autenticado
+            return redirect()->back()->with('error', 'Usuario no autenticado');
+        }
+
+        $student = $user->student; // Acceder al perfil de estudiante del usuario
+        if (!$student) {
+            // Manejar el caso cuando no se encuentra el estudiante
+            return redirect()->back()->with('error', 'Estudiante no encontrado');
+        }
+
+        $avatar = $user->avatar; // Obtener el avatar del usuario
+        $course = $student->course; // Obtener el curso del estudiante
+        $companie = $student->companie; // Obtener la empresa del estudiante
+        $tutor = $student->tutor; // Obtener el tutor del estudiante
+        $roles = $user->roles;
+
+        return view('students.cardStudent', compact('student', 'course', 'companie', 'tutor', 'user', 'avatar', 'roles'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -98,7 +118,9 @@ class StudentController extends Controller
         $companies = Company::all();
         $tutors = Tutor::all();
         $users = User::all();
-        return view('students.editStudent', compact('student', 'courses', 'companies', 'tutors', 'users'));
+        $avatar = $student->user->avatar; // Obtener el avatar del usuario del estudiante
+
+        return view('students.editStudent', compact('student', 'courses', 'companies', 'tutors', 'users', 'avatar'));
     }
 
     /**
@@ -111,12 +133,11 @@ class StudentController extends Controller
 
         // Validación de los datos recibidos
         $request->validate([
-            'nombre' => 'required',
+            'name' => 'required',
             'apellidos' => 'required',
             'email' => 'required',
-            'user_id' => 'required',
             'telefono_movil' => 'required',
-            'course_id' => 'required',
+            'course_id' => 'nullable',
             'nota_media' => 'nullable',
             'company_id' => 'nullable',
             'subir_cv' => 'nullable|file|mimes:pdf|max:2048',
@@ -146,7 +167,8 @@ class StudentController extends Controller
         }
 
         // Redirecciona a la página de índice de estudiantes con un mensaje de éxito
-        return redirect()->route('students.index')->with('success', 'Estudiante actualizado exitosamente!');
+        return redirect()->route('welcome.index', $student->id)->with('success', 'Estudiante actualizado exitosamente!');
+
     }
 
 

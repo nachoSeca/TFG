@@ -57,6 +57,8 @@
                 <span>Sign up with Apple</span>
             </div>
             <div class="google-login-button">
+                <a href="{{ route('login-google') }}">
+
                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" x="0px" y="0px"
                     class="google-icon" viewBox="0 0 48 48" height="1em" width="1em"
                     xmlns="http://www.w3.org/2000/svg">

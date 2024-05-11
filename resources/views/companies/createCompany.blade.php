@@ -1,16 +1,15 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('styles')
-    <link rel="stylesheet" type="text/css" href="/css/companies/company.css">
-    <link rel="stylesheet" type="text/css" href="/css/tutors/createTutor.css">
-@endsection
+@section('title', 'Dashboard')
 
-@section('title', 'Nueva empresa')
+@section('content_header')
+    {{-- <h1>Nuevo Usuario</h1> --}}
+@stop
 
 @section('content')
-    <div class="container mt-5">
+<div class="container">
 
-        <h1>Nueva empresa</h1>
+    <h1>Nueva empresa</h1>
         <div class="row">
             <div class="col-12">
                 <div class="button_return">
@@ -158,7 +157,7 @@
                             
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                                 <div class="form-group">
-                                    <label for="course_id"><strong>Curso:</strong><span class="required">*</span></label>
+                                    <strong>Busca alumnos de:</strong><span class="required">*</span>
                                     <select name="course_id" id="course_id" class="form-control">
                                         <option value="">Seleccionar...</option>
                                         <!-- Opción vacía para "selección" -->
@@ -184,15 +183,17 @@
                 </div>
         </div>
         </form>
-    </div>
+</div>
+@stop
 
+@section('css')
+    <link rel="stylesheet" href="/css/users/user.css">
+    <link rel="stylesheet" type="text/css" href="/css/tutors/tutor.css">
+    <link rel="stylesheet" type="text/css" href="/css/tutors/createTutor.css">
 
-@endsection
+@stop
 
-@section('footer')
+@section('js')
 
-@endsection
-
-@section('scripts')
-
-@endsection
+    </script>
+@stop

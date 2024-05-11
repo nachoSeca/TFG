@@ -27,8 +27,12 @@ class LoginController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
+
+            // Darle un rol al usuario
+            $user->assignRole('admin');
+            
             Auth::login($user);
-            return redirect(route('students.index'));
+            return redirect(route('admin.index'));
         }
     }
 
@@ -39,7 +43,7 @@ class LoginController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ];
-        // dd($credentials, Auth::attempt($credentials)); // Aquí se detendrá la ejecución y se imprimirán las variables
+         dd($credentials, Auth::attempt($credentials)); // Aquí se detendrá la ejecución y se imprimirán las variables
 
         // Comprobar si el usuario se autenticó mediante Google
         $user = User::where('email', $request->email)->first();
@@ -57,6 +61,21 @@ class LoginController extends Controller
                 'email' => 'Las credenciales no coinciden',
             ]);
         }
+
+        // if (Auth::attempt($credentials)) {
+        //     $request->session()->regenerate();
+
+        //     // Redirigir según el rol del usuario
+        //     if (Auth::user()->roles->contains('name', 'admin')) {
+        //         return redirect(route('admin.index'));
+        //     } else {
+        //         return redirect(route('students.index'));
+        //     }
+        // } else {
+        //     return back()->withErrors([
+        //         'email' => 'Las credenciales no coinciden',
+        //     ]);
+        // }
     }
 
     public function logout(Request $request)

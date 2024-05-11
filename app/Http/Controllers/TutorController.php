@@ -14,7 +14,7 @@ class TutorController extends Controller
     public function index()
     {
         //
-        $tutors = Tutor::orderBy('nombre', 'ASC')->paginate(10);
+        $tutors = Tutor::orderBy('name', 'ASC')->paginate(10);
         return view('tutors.homeTutor', compact('tutors'));
     }
 
@@ -38,10 +38,10 @@ class TutorController extends Controller
     {
         //
         $request->validate([
-            'nombre' => 'required',
+            'name' => 'required',
             'apellidos' => 'required',
             'email' => 'required',
-            'user_id' => 'required',
+            // 'user_id' => 'required',
             'telefono_movil' => 'required',
         ]);
 
@@ -82,7 +82,7 @@ class TutorController extends Controller
 
         // Validación de los datos recibidos
         $request->validate([
-            'nombre' => 'required',
+            'name' => 'required',
             'apellidos' => 'required',
             'email' => 'required',
             'user_id' => 'required',

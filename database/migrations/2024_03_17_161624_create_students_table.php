@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 60);
-            $table->string('apellidos', 100);
+            $table->string('name', 60);
+            $table->string('apellidos', 100)->default('');
             $table->string('email', 100);
-            $table->string('telefono_movil');
+            $table->string('telefono_movil')->default('');
             $table->float('nota_media')->nullable();
             $table->string('subir_cv', 255)->nullable();
             $table->date('fecha_inicio_fct')->nullable();
@@ -25,14 +25,14 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('tutor_id')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
-            $table->unsignedBigInteger('course_id');
-
+            $table->unsignedBigInteger('course_id')->nullable();
+        
             // Definición de las claves foráneas
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('tutor_id')->references('id')->on('tutors')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
-
+            $table->foreign('tutor_id')->references('id')->on('tutors')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('set null')->onUpdate('cascade'); // Cambia esto a 'set null'
+        
             $table->timestamps();
         });
     }
