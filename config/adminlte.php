@@ -310,14 +310,14 @@ return [
         //     'text' => 'search',
         // ],
 
-        [
-            'text' => 'Admin',
-            'can' => 'total',
-            'url' => 'admin',
-            'icon' => 'fas fa-lock',
-            // 'label' => 4,
-            'label_color' => 'success',
-        ],
+        // [
+        //     'text' => 'Admin',
+        //     'can' => 'total',
+        //     'url' => 'admin',
+        //     'icon' => 'fas fa-lock',
+        //     // 'label' => 4,
+        //     'label_color' => 'success',
+        // ],
         [
             'text' => 'Tutores',
             'can' => 'tutors.index',
@@ -382,52 +382,52 @@ return [
         [
             'text' => 'Perfil tutor',
             'can' => 'tutors.show',
-            'url' => 'admin/settings',
+            'url' => 'tutors/show',
             'icon' => 'fas fa-fw fa-user',
         ],
-        [
-            'text' => 'change_password',
-            'url' => 'auth/password/reset',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
+        // [
+        //     'text' => 'change_password',
+        //     'url' => 'auth/password/reset',
+        //     'icon' => 'fas fa-fw fa-lock',
+        // ],
+        // [
+        //     'text' => 'multilevel',
+        //     'icon' => 'fas fa-fw fa-share',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'level_one',
+        //             'url' => '#',
+        //         ],
+        //         [
+        //             'text' => 'level_one',
+        //             'url' => '#',
+        //             'submenu' => [
+        //                 [
+        //                     'text' => 'level_two',
+        //                     'url' => '#',
+        //                 ],
+        //                 [
+        //                     'text' => 'level_two',
+        //                     'url' => '#',
+        //                     'submenu' => [
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url' => '#',
+        //                         ],
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url' => '#',
+        //                         ],
+        //                     ],
+        //                 ],
+        //             ],
+        //         ],
+        //         [
+        //             'text' => 'level_one',
+        //             'url' => '#',
+        //         ],
+        //     ],
+        // ],
 
     ],
 

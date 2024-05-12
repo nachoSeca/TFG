@@ -4,7 +4,7 @@
 
 @section('content')
     <link rel="stylesheet" href="css/style.css">
-    
+
 
     <!-- Floating Button -->
     <button onclick="window.location.href='#section1'" class="Btn" id="floating-button">
@@ -37,14 +37,7 @@
                 <h2 class="text_main">¡Gestiona las prácticas de tus alumnos!</h2>
                 <br />
                 <div class="row">
-                    <div class="col-6 d-flex justify-content-center">
-                        <button onclick="window.location.href='#section2'">
-                            Más información
-                        </button>
-                    </div>
-
-
-                    <div class="col-6 d-flex justify-content-center">
+                    <div class="col-12 d-flex justify-content-center">
                         <button onclick="window.location.href='{{ route('login') }}'">Inicio Sesión</button>
                     </div>
                 </div>
@@ -53,91 +46,10 @@
     </div>
 
     <!-- Main container section 3 -->
-    <div class="container vh-100 text-center" id="section2">
-        <h3>PractiHub</h3>
-        <p>Getiona las prácticas de tus alumnos</p>
-        <!-- Main uses -->
-        <div class="row justify-content-center">
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="content">
-                        <p class="heading">Alumnos</p>
-                        <p class="para">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi laboriosam
-                            at voluptas minus culpa deserunt delectus sapiente inventore pariatur
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="content">
-                        <p class="heading">Tutores</p>
-                        <p class="para">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi laboriosam
-                            at voluptas minus culpa deserunt delectus sapiente inventore pariatur
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card card3">
-                    <div class="content">
-                        <p class="heading">Empresas</p>
-                        <p class="para">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi laboriosam
-                            at voluptas minus culpa deserunt delectus sapiente inventore pariatur
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- End principal container -->
-    </div>
 
     <!-- Main container section 2 -->
-    <div class="container vh-100 text-center" id="section2">
-        <h3>PractiHub</h3>
-        <p>Getiona las prácticas de tus alumnos</p>
-        <!-- Main uses -->
-        <div class="row">
-            <div class="col-sm-4">
-                <p><strong>Tutores</strong></p>
-                <br />
-                <a href="#infoTutores" data-bs-toggle="collapse">
-                    <img src="image/teacher.png" alt="Profesor" class="image_uses" />
-                </a>
-                <div id="infoTutores" class="collapse">
-                    <p>Los tutores pueden gestionar las prácticas de sus alumnos</p>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <p><strong>Alumnos</strong></p>
-                <br />
-                <a href="#infoAlumnos" data-bs-toggle="collapse">
-                    <img src="/image/Studying.png" alt="Estudiante" class="image_uses" />
-                </a>
-                <div id="infoAlumnos" class="collapse">
-                    <p>
-                        Los alumnos pueden ver las prácticas disponibles y solicitarlas
-                    </p>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <p><strong>Empresas</strong></p>
-                <br />
-                <a href="#infoEmpresas" data-bs-toggle="collapse">
-                    <img src="image/company.png" alt="Empresa" class="image_uses" />
-                </a>
-                <div id="infoEmpresas" class="collapse">
-                    <p>Las empresas pueden publicar prácticas para los alumnos</p>
-                </div>
-            </div>
-        </div>
 
-        <!-- End principal container -->
-    </div>
 
 @endsection
 

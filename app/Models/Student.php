@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
+
 
 class Student extends Model
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
 
     // Relación 1:1 de Student a User
     // Un estudiante solo tiene un usuario

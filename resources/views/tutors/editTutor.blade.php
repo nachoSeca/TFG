@@ -11,6 +11,7 @@
 
     <h1>Editar tutor</h1>
     <div class="row">
+        @can('total')
         <div class="col-12">
             <div class="button_return">
                 <a href="{{ route('tutors.index') }}" class="form-btn">
@@ -19,7 +20,17 @@
                 </a>
             </div>
         </div>
-
+        @endcan
+        @can('tutors.show')
+        <div class="col-12">
+            <div class="button_return">
+                <a href="{{ route('tutors.show', $tutor->id) }}" class="form-btn">
+                    <img src="/image/volver.png" alt="" class="icons">
+                    Volver
+                </a>
+            </div>
+        </div>
+        @endcan
         {{-- Mostramos mensaje de que algo salio mal --}}
         @if ($errors->any())
             <div class="alert alert-danger mt-2">

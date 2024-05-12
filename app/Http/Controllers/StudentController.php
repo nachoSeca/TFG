@@ -110,18 +110,29 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
-    {
-        //
-        $student = Student::find($id);
-        $courses = Course::all();
-        $companies = Company::all();
-        $tutors = Tutor::all();
-        $users = User::all();
-        $avatar = $student->user->avatar; // Obtener el avatar del usuario del estudiante
-
-        return view('students.editStudent', compact('student', 'courses', 'companies', 'tutors', 'users', 'avatar'));
+public function edit($id)
+{
+    // Encuentra al estudiante por su ID
+    $student = Student::find($id);
+    // Verifica si el estudiante existe
+    if (!$student) {
+        abort(404); // Puedes personalizar el mensaje de error según tus necesidades
     }
+
+    // Verifica si el usuario autenticado tiene permiso para editar este estudiante o si es un administrador
+    if ($student->user_id !== auth()->id() && !auth()->user()->hasRole('admin')) {
+        abort(403, 'No tienes permiso para editar este estudiante.'); // Acceso prohibido
+    }
+    //
+    $student = Student::find($id);
+    $courses = Course::all();
+    $companies = Company::all();
+    $tutors = Tutor::all();
+    $users = User::all();
+    $avatar = $student->user->avatar; // Obtener el avatar del usuario del estudiante
+
+    return view('students.editStudent', compact('student', 'courses', 'companies', 'tutors', 'users', 'avatar'));
+}
 
     /**
      * Update the specified resource in storage.
@@ -168,7 +179,6 @@ class StudentController extends Controller
 
         // Redirecciona a la página de índice de estudiantes con un mensaje de éxito
         return redirect()->route('welcome.index', $student->id)->with('success', 'Estudiante actualizado exitosamente!');
-
     }
 
 

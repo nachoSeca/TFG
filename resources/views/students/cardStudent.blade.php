@@ -126,7 +126,11 @@
                                             <strong class="margin-10px-left text-green">Dirección de empresa:</strong>
                                         </div>
                                         <div class="col-md-7 col-7">
-                                            <p>MODIFICAR</p>
+                                            @if ($student->direccion_practicas)
+                                                <p>{{ $student->direccion_practicas }}</p>
+                                            @else
+                                                <p>Información no disponible.</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </li>

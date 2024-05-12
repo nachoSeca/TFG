@@ -27,7 +27,6 @@ class TrackingController extends Controller
         $tutors = Tutor::all();
 
         return view('trackings.createTracking', compact('students', 'tutors'));
-        
     }
 
     /**
@@ -40,12 +39,12 @@ class TrackingController extends Controller
             'fecha_seguimiento' => 'required',
             'observaciones' => 'required',
             'pdf_seguimiento' => 'nullable|file|mimes:pdf|max:2048',
-            'tutor_id' => 'required', 
+            'tutor_id' => 'required',
             'student_id' => 'required',
         ]);
 
-         // Verifica si se ha subido un archivo
-         if ($request->hasFile('pdf_seguimiento')) {
+        // Verifica si se ha subido un archivo
+        if ($request->hasFile('pdf_seguimiento')) {
             // Obtiene el nombre del archivo
             $nombreArchivo = $request->file('pdf_seguimiento')->getClientOriginalName();
 
@@ -79,10 +78,18 @@ class TrackingController extends Controller
     public function edit($id)
     {
         $tracking = Tracking::find($id);
-        $students = Student::all();
-        $tutors = Tutor::all();
+        $user = auth()->user();
 
-        return view('trackings.editTracking', compact('tracking', 'students', 'tutors'));
+        // Verificar si el usuario es un administrador o el tutor asignado al seguimiento
+        if ($user->hasRole('admin') || $user->tutor->id == $tracking->tutor_id) {
+            $students = Student::all();
+            $tutors = Tutor::all();
+
+            return view('trackings.editTracking', compact('tracking', 'students', 'tutors'));
+        }
+
+        // Si el usuario no está autorizado, redirigirlo y mostrar un mensaje de error
+        abort(403, 'No tienes permiso para editar este estudiante.'); // Acceso prohibido
     }
 
 
@@ -96,7 +103,7 @@ class TrackingController extends Controller
             'fecha_seguimiento' => 'required',
             'observaciones' => 'required',
             'pdf_seguimiento' => 'nullable|file|mimes:pdf|max:2048',
-            'tutor_id' => 'required', 
+            'tutor_id' => 'required',
             'student_id' => 'required',
         ]);
 
@@ -137,5 +144,4 @@ class TrackingController extends Controller
     {
         return view('trackings.deleteTracking', compact('tracking'));
     }
-
 }

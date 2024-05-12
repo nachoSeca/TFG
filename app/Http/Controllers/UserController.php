@@ -89,6 +89,10 @@ class UserController extends Controller
             $user->avatar = $filename;
 
             $user->save();
+        } else {
+            // Establecer el avatar a un valor por defecto si no se ha subido ningún archivo
+            $user->avatar = 'avatar.png';
+            $user->save();
         }
 
         $roles = Role::whereIn('name', $request->roles)->get()->pluck('id');

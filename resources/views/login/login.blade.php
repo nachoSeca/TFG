@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="/css/login/login.css">
 @endsection
 
-@section('title', 'Login de usuario')
+@section('title', 'Login de usuarioa)
 
 @section('content')
 
@@ -24,7 +24,7 @@
                 <form method="POST" action="{{ route('inicia-sesion') }}">
                     @csrf
                     <div class="form-container">
-                        <p class="title">Welcome back</p>
+                        <p class="title">Welcome backaaaa</p>
                         <form class="form">
                             <input name="email" type="email" class="input mb-3" placeholder="Email" id="email">
                             <input name="password" type="password" class="input mb-3" placeholder="Password" id="pass">
@@ -35,7 +35,7 @@
                                 <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar Contraseña </label>
                             </div>
                             <p class="page-link">
-                                <span class="page-link-label">Forgot Password?</span>
+                                <span class="page-link-label">Contrasena olvidada?</span>
                             </p>
                             <button type="submit" class="form-btn" {{-- onclick="comprobarEmailYPass()" --}}>Log in</button>
                         </form>

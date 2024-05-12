@@ -27,6 +27,16 @@
         </use>
         <h1>403</h1>
         <h2>Acceso no permitido!</h2>
+        <div class="row">
+            <div class="col-lg-4 col-md-5 xs-margin-30px-bottom d-flex flex-column align-items-center ">
+
+                <ul class="list-style9 no-margin">
+                    <li> <a href="{{ route('home') }}" class="form-btn">Volver a inicio</a>
+                    </li>
+
+                </ul>
+
+            </div>
 
 
     @stop
