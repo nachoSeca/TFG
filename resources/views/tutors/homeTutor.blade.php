@@ -7,85 +7,85 @@
 @stop
 
 @section('content')
-<div class="container-fluid">
-    <h1 class="text-center">Listado de tutores</h1>
+    <div class="container-fluid">
+        <h1 class="text-center">Listado de tutores</h1>
 
-    <div class="row">
-        <div class="col-12">
-            <div>
-                <a href="{{ route('tutors.create') }}" class="form-btn">Añadir tutor</a>
+        <div class="row">
+            <div class="col-12">
+                <div>
+                    <a href="{{ route('users.create', ['role' => 'tutor']) }}" class="form-btn">Añadir tutor</a>
+                </div>
             </div>
-        </div>
-        {{-- Mostramos mensaje de que se ingreso bien --}}
-        @if (Session::get('success'))
-            <div class="alert alert-success mt-2">
-                <strong>{{ Session::get('success') }}</strong>
-            </div>
-        @endif
+            {{-- Mostramos mensaje de que se ingreso bien --}}
+            @if (Session::get('success'))
+                <div class="alert alert-success mt-2">
+                    <strong>{{ Session::get('success') }}</strong>
+                </div>
+            @endif
 
-        {{-- Mostramos mensaje de que algo salio mal --}}
-        @if ($errors->any())
-            <div class="alert alert-danger mt-2">
-                <strong>Por las chancas de mi madre!</strong> Algo fue mal..<br><br>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+            {{-- Mostramos mensaje de que algo salio mal --}}
+            @if ($errors->any())
+                <div class="alert alert-danger mt-2">
+                    <strong>Por las chancas de mi madre!</strong> Algo fue mal..<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-        <div class="col-12 mt-4 table-responsive">
+            <div class="col-12 mt-4 table-responsive">
 
-            <table class="table table-striped" id="myTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Email</th>
-                        <th>Teléfono Móvil</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($tutors as $tutor)
+                <table class="table table-striped" id="myTable" width="100%" cellspacing="0">
+                    <thead>
                         <tr>
-                            <td class="fw-bold">{{ $tutor->name }}</td>
-                            <td>{{ $tutor->apellidos }}</td>
-                            <td>{{ $tutor->email }}</td>
-                            <td>{{ $tutor->telefono_movil }}</td>
-                            <td>
-                                <a href="{{ route('tutors.edit', $tutor->id) }}" class="btn">
-                                    <img src="image/edit.png" alt="" class="icons">
-                                </a>
-                                <form action="{{ route('tutors.delete', $tutor) }}" method="post" class="d-inline">
-                                    @csrf
-                                    @method('GET')
-                                    <button type="submit" class="btn">
-                                        <img src="image/delete.png" alt="" class="icons">
-                                    </button>
-                                </form>
-                            </td>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Email</th>
+                            <th>Teléfono Móvil</th>
+                            <th>Acciones</th>
                         </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Email</th>
-                        {{-- <th>Nombre de Usuario</th> --}}
-                        <th>Teléfono Móvil</th>
-                        <th>Acciones</th>
-                    </tr>
-                </tfoot>
-            </table>
-            <div class="paginar">
-                {{ $tutors->links('pagination::bootstrap-5') }}
+                    </thead>
+                    <tbody>
+                        @foreach ($tutors as $tutor)
+                            <tr>
+                                <td class="fw-bold">{{ $tutor->name }}</td>
+                                <td>{{ $tutor->apellidos }}</td>
+                                <td>{{ $tutor->email }}</td>
+                                <td>{{ $tutor->telefono_movil }}</td>
+                                <td>
+                                    <a href="{{ route('tutors.edit', $tutor->id) }}" class="btn">
+                                        <img src="image/edit.png" alt="" class="icons">
+                                    </a>
+                                    <form action="{{ route('tutors.delete', $tutor) }}" method="post" class="d-inline">
+                                        @csrf
+                                        @method('GET')
+                                        <button type="submit" class="btn">
+                                            <img src="image/delete.png" alt="" class="icons">
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Email</th>
+                            {{-- <th>Nombre de Usuario</th> --}}
+                            <th>Teléfono Móvil</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="paginar">
+                    {{ $tutors->links('pagination::bootstrap-5') }}
+                </div>
             </div>
         </div>
     </div>
-</div>
 @stop
 
 @section('css')

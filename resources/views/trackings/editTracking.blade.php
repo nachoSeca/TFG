@@ -9,7 +9,7 @@
 @section('content')
     <div class="container">
 
-        <h1>Editar estudiante</h1>
+        <h1>Editar seguimiento</h1>
         <div class="row">
             <div class="col-12">
                 <div class="button_return">

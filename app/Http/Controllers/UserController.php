@@ -8,6 +8,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use App\Models\Student;
 use App\Models\Tutor;
+use App\Models\Course;
 
 class UserController extends Controller
 {
@@ -42,7 +43,7 @@ class UserController extends Controller
             'email' => 'required|unique:users,email',
             'password' => 'required',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'roles' => 'required|array'
+            'roles' => 'required|string'
         ]);
 
         $existingUser = User::where('email', $request->email)->first();
@@ -53,25 +54,34 @@ class UserController extends Controller
             ]);
         }
 
+        $coursesCount = Course::count();
+
+        if ($coursesCount == 0) {
+            return back()->withErrors([
+                'No se puede crear un estudiante sin un curso disponible',
+            ]);
+        }
+
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
         $user = User::create($data);
 
         // Acceder a la matriz de roles seleccionados
         $roles = $request->roles;
-
+        // Obtiene el primer curso
+        $course = Course::first();
         // Verificar si se ha seleccionado el rol de estudiante
-        if (in_array('student', $roles)) {
+        if ($roles == 'student') {
             // Crea el registro del estudiante con user_id establecido automáticamente
             $estudiante = Student::create([
                 'name' => $request->name, // Opcional: copiar nombre del usuario para conveniencia
                 'email' => $request->email, // Opcional: podría ser redundante pero se incluye para claridad
                 'user_id' => $user->id, // Establecer user_id al ID del usuario recién creado
-                'course_id' => 1, // Establecer course_id a un valor por defecto
+                'course_id' => $course->id, // Establecer course_id al ID del primer curso disponible
             ]);
         }
         // Verificar si se ha seleccionado el rol de estudiante
-        if (in_array('tutor', $roles)) {
+        if ($roles == 'tutor') {
             // Crea el registro del tutor con user_id establecido automáticamente
             $tutor = Tutor::create([
                 'name' => $request->name, // Opcional: copiar nombre del usuario para conveniencia
@@ -95,7 +105,7 @@ class UserController extends Controller
             $user->save();
         }
 
-        $roles = Role::whereIn('name', $request->roles)->get()->pluck('id');
+        $roles = Role::where('name', $request->roles)->get()->pluck('id');
         $user->roles()->attach($roles);
 
         return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente!');
@@ -114,6 +124,17 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+
+        $user = User::find($id);
+        // Verifica si el estudiante existe
+        if (!$user) {
+            abort(404); // Puedes personalizar el mensaje de error según tus necesidades
+        }
+
+        // Verifica si el usuario autenticado tiene permiso para editar este estudiante o si es un administrador
+        if ($user->user_id !== auth()->id() && !auth()->user()->hasRole('admin')) {
+            abort(403, 'No tienes permiso para editar este estudiante.'); // Acceso prohibido
+        }
         $user = User::find($id);
         return view('users.editUser', compact('user'));
     }
@@ -131,7 +152,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'roles' => 'required|array'
+            'roles' => 'required|string'
         ]);
 
         // Actualiza los datos del usuario excepto el avatar
@@ -149,10 +170,10 @@ class UserController extends Controller
         }
 
         // Control del rol del usuario
-        $roles = Role::whereIn('name', $request->roles)->get()->pluck('name')->toArray();
+        $roleName = $request->roles;
 
         // Verificar si el usuario cambió de estudiante a tutor o viceversa
-        if ($user->student && in_array('tutor', $roles)) {
+        if ($user->student && $roleName == 'tutor') {
             // Cambio de estudiante a tutor
             $user->student->delete();
             $tutor = Tutor::create([
@@ -160,7 +181,7 @@ class UserController extends Controller
                 'email' => $user->email,
                 'user_id' => $user->id,
             ]);
-        } elseif ($user->tutor && in_array('student', $roles)) {
+        } elseif ($user->tutor && $roleName == 'student') {
             // Cambio de tutor a estudiante
             $user->tutor->delete();
             $student = Student::create([
@@ -172,7 +193,10 @@ class UserController extends Controller
         }
 
         // Actualizar los roles del usuario
-        $user->roles()->sync(Role::whereIn('name', $roles)->get());
+        $role = Role::where('name', $roleName)->first();
+        if ($role) {
+            $user->roles()->sync($role->id);
+        }
 
         return redirect()->route('users.index')->with('success', 'Usuario actualizado exitosamente!');
     }

@@ -75,26 +75,25 @@
                                 <div class="form-group">
                                     <strong>Rol:<span class="required">*</span></strong>
                                     <div>
-                                        <label class="cl-checkbox" for="admin">
-                                            <input type="checkbox" id="admin" name="roles[]" value="admin"
-                                                {{ in_array('admin', $user->roles->pluck('name')->toArray()) ? 'checked' : '' }}>
+                                        <label class="cl-radio" for="admin">
+                                            <input type="radio" id="admin" name="roles" value="admin"
+                                                {{ $user->roles->pluck('name')->first() == 'admin' ? 'checked' : '' }}>
                                             <span>Admin</span>
                                         </label>
                                     </div>
 
                                     <div>
-                                        <label class="cl-checkbox" for="tutor">
-                                            <input type="checkbox" id="tutor" name="roles[]" value="tutor"
-                                                class="cl-checkbox"
-                                                {{ in_array('tutor', $user->roles->pluck('name')->toArray()) ? 'checked' : '' }}>
+                                        <label class="cl-radio" for="tutor">
+                                            <input type="radio" id="tutor" name="roles" value="tutor"
+                                                {{ $user->roles->pluck('name')->first() == 'tutor' ? 'checked' : '' }}>
                                             <span>Tutor</span>
                                         </label>
                                     </div>
+
                                     <div>
-                                        <label class="cl-checkbox" for="student">
-                                            <input type="checkbox" id="student" name="roles[]" value="student"
-                                                class="cl-checkbox"
-                                                {{ in_array('student', $user->roles->pluck('name')->toArray()) ? 'checked' : '' }}>
+                                        <label class="cl-radio" for="student">
+                                            <input type="radio" id="student" name="roles" value="student"
+                                                {{ $user->roles->pluck('name')->first() == 'student' ? 'checked' : '' }}>
                                             <span>Student</span>
                                         </label>
                                     </div>

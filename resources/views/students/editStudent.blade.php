@@ -133,11 +133,15 @@
                                     <div class="form-group">
                                         <strong>Curso:</strong><span class="required">*</span>
                                         <select name="course_id" id="course_id" class="form-control">
-                                            @foreach ($courses as $course)
-                                                <option value="{{ $course->id }}"
-                                                    {{ old('course_id', $student->course->id) == $course->id ? 'selected' : '' }}>
-                                                    {{ $course->nombre }}</option>
-                                            @endforeach
+                                            @if ($courses->isEmpty())
+                                                <option>No hay cursos disponibles</option>
+                                            @else
+                                                @foreach ($courses as $course)
+                                                    <option value="{{ $course->id }}"
+                                                        {{ old('course_id', optional($student->course)->id) == $course->id ? 'selected' : '' }}>
+                                                        {{ $course->nombre }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
@@ -213,7 +217,7 @@
     @stop
 
     @section('css')
-    <link rel="stylesheet" type="text/css" href="/css/users/user.css">
+        <link rel="stylesheet" type="text/css" href="/css/users/user.css">
         <link rel="stylesheet" type="text/css" href="/css/student.css">
 
 

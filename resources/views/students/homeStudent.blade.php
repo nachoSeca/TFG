@@ -12,7 +12,7 @@
             <div class="col-12">
                 <h1 class="text-center">Listado de alumnos</h1>
                 <div>
-                    <a href="{{ route('users.create') }}" class="form-btn">Añadir estudiante</a>
+                    <a href="{{ route('users.create',['role' => 'student']) }}" class="form-btn">Añadir estudiante</a>
                 </div>
             </div>
         </div>
@@ -65,7 +65,13 @@
                                 <td>{{ $student->email }}</td>
                                 <td>{{ $student->user->name }}</td>
                                 <td>{{ $student->telefono_movil }}</td>
-                                <td>{{ $student->course->nombre }}</td>
+                                <td>
+                                    @if ($student->course)
+                                        {{ $student->course->nombre }}
+                                    @else
+                                        El alumno no tiene curso asignado
+                                    @endif
+                                </td>
                                 <td>{{ $student->nota_media }}</td>
                                 <td>{{ $student->subir_cv }}</td>
                                 <td>{{ $student->company->nombre ?? '-' }}</td>

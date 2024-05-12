@@ -69,29 +69,29 @@
                                 <div class="form-group">
                                     <strong>Rol:<span class="required">*</span></strong>
                                     <div>
-                                        <label class="cl-checkbox" for="admin">
-                                            <input type="checkbox" id="admin" name="roles[]" value="admin">
+                                        <label class="cl-radio" for="admin">
+                                            <input type="radio" id="admin" name="roles" value="admin"
+                                                class="cl-radio" {{ request('role') == 'admin' ? 'checked' : '' }}>
                                             <span>Admin</span>
                                         </label>
                                     </div>
 
                                     <div>
-                                        <label class="cl-checkbox" for="tutor">
-                                            <input type="checkbox" id="tutor" name="roles[]" value="tutor"
-                                                class="cl-checkbox">
+                                        <label class="cl-radio" for="tutor">
+                                            <input type="radio" id="tutor" name="roles" value="tutor"
+                                                class="cl-radio" {{ request('role') == 'tutor' ? 'checked' : '' }}>
                                             <span>Tutor</span>
                                         </label>
                                     </div>
                                     <div>
-                                        <label class="cl-checkbox" for="student">
-                                            <input type="checkbox" id="student" name="roles[]" value="student"
-                                                class="cl-checkbox">
+                                        <label class="cl-radio" for="student">
+                                            <input type="radio" id="student" name="roles" value="student"
+                                                class="cl-radio" {{ request('role') == 'student' ? 'checked' : '' }}>
                                             <span>Student</span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
-
 
 
 

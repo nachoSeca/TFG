@@ -89,8 +89,7 @@ class User extends Authenticatable
     public function adminlte_desc()
     {
         // return 'Administrador';
-        return $this->roles->first()->name;
-    }
+        return $this->roles->first()?->name ?? 'No role assigned';    }
 
     public function adminlte_profile_url()
     {

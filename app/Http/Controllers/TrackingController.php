@@ -78,18 +78,21 @@ class TrackingController extends Controller
     public function edit($id)
     {
         $tracking = Tracking::find($id);
-        $user = auth()->user();
-
-        // Verificar si el usuario es un administrador o el tutor asignado al seguimiento
-        if ($user->hasRole('admin') || $user->tutor->id == $tracking->tutor_id) {
-            $students = Student::all();
-            $tutors = Tutor::all();
-
-            return view('trackings.editTracking', compact('tracking', 'students', 'tutors'));
+        // Verifica si el estudiante existe
+        if (!$tracking) {
+            abort(404); // Puedes personalizar el mensaje de error según tus necesidades
         }
 
-        // Si el usuario no está autorizado, redirigirlo y mostrar un mensaje de error
-        abort(403, 'No tienes permiso para editar este estudiante.'); // Acceso prohibido
+        // Verifica si el usuario autenticado tiene permiso para editar este estudiante o si es un administrador
+        if ($tracking->user_id !== auth()->id() && !auth()->user()->hasRole('admin')) {
+            abort(403, 'No tienes permiso para editar este estudiante.'); // Acceso prohibido
+        }
+
+        $tracking = Tracking::find($id);
+        $students = Student::all();
+        $tutors = Tutor::all();
+
+        return view('trackings.editTracking', compact('tracking', 'students', 'tutors'));
     }
 
 

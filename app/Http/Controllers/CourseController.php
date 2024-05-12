@@ -54,6 +54,16 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
+        $course = Course::find($id);
+        // Verifica si el estudiante existe
+        if (!$course) {
+            abort(404); // Puedes personalizar el mensaje de error según tus necesidades
+        }
+
+        // Verifica si el usuario autenticado tiene permiso para editar este estudiante o si es un administrador
+        if ($course->user_id !== auth()->id() && !auth()->user()->hasRole('admin')) {
+            abort(403, 'No tienes permiso para editar este estudiante.'); // Acceso prohibido
+        }
         //
         $course = Course::find($id);
         return view('courses.editCourse', compact('course'));

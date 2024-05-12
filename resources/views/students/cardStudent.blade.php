@@ -97,7 +97,13 @@
                                             <strong class="margin-10px-left text-yellow">Curso:</strong>
                                         </div>
                                         <div class="col-md-7 col-7">
-                                            <p>{{ $course->nombre }}</p>
+                                            <p>
+                                                @if ($student->course)
+                                                    {{ $student->course->nombre }}
+                                                @else
+                                                    El alumno no tiene curso asignado
+                                                @endif
+                                            </p>
                                         </div>
                                     </div>
 
