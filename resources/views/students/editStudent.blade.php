@@ -39,7 +39,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('students.update', $student->id) }}" method="POST" enctype="multipart/form-data">
+            <form id="studentForm" action="{{ route('students.update', $student->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -58,6 +58,7 @@
                                     <strong>Email:<span class="required">*</span></strong>
                                     <input value="{{ $student->email }}" type="email" name="email" class="form-control"
                                         placeholder="Email">
+                                    <span class="error-message" id="email_error"></span> <!-- Span para mostrar mensaje de error -->
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
@@ -65,17 +66,19 @@
                                     <strong>Teléfono móvil:<span class="required">*</span></strong>
                                     <input value="{{ $student->telefono_movil }}" type="text" name="telefono_movil"
                                         class="form-control" placeholder="Teléfono móvil">
+                                    <span class="error-message" id="telefono_movil_error"></span> <!-- Span para mostrar mensaje de error -->
                                 </div>
                             </div>
                             @can('students.index')
-                                <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
-                                    <div class="form-group">
-                                        <strong>Nota media:</strong>
-                                        <input value="{{ $student->nota_media }}" type="number" name="nota_media"
-                                            class="form-control" placeholder="Nota media">
-                                    </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
+                                <div class="form-group">
+                                    <strong>Nota media:</strong>
+                                    <input value="{{ $student->nota_media }}" type="number" name="nota_media"
+                                        class="form-control" placeholder="Nota media">
+                                    <span class="error-message" id="nota_media_error"></span> <!-- Span para mostrar mensaje de error -->
                                 </div>
-                            @endcan
+                            </div>
+                        @endcan
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                                 <div class="form-group">
                                     <strong>Subir CV:</strong>
@@ -224,5 +227,5 @@
     @stop
 
     @section('js')
-
+        <script src="/js/students/editStudent.js"></script>
     @stop

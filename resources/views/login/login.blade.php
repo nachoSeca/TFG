@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="/css/login/login.css">
 @endsection
 
-@section('title', 'Login de usuarioa)
+@section('title', 'Login de usuario')
 
 @section('content')
 

@@ -31,7 +31,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('companies.store') }}" method="POST" enctype="multipart/form-data">
+            <form id="companieForm" action="{{ route('companies.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row">
@@ -49,8 +49,9 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                                 <div class="form-group">
                                     <strong>Código Postal:<span class="required">*</span></strong>
-                                    <input value="{{ old('codigo_postal') }}" type="text" name="codigo_postal"
-                                        class="form-control" placeholder="Código postal">
+                                    <input value="{{ old('codigo_postal') }}" type="text" name="codigo_postal" class="form-control" placeholder="Código postal">
+                                    {{-- <small class="form-text text-muted">El código postal debe tener exactamente 5 dígitos.</small> --}}
+                                    <span class="error-message" id="codigo_postal_error"></span>
                                 </div>
                             </div>
 
@@ -72,15 +73,15 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                                 <div class="form-group">
                                     <strong>Email contacto:<span class="required">*</span></strong>
-                                    <input value="{{ old('email_contacto') }}" type="email" name="email_contacto" class="form-control"
-                                        placeholder="Email Contacto">
+                                    <input value="{{ old('email_contacto') }}" type="email" name="email_contacto" class="form-control" placeholder="Email Contacto">
+                                    <span class="error-message" id="email_contacto_error"></span>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                                 <div class="form-group">
                                     <strong>Teléfono fijo:</strong>
-                                    <input value="{{ old('telefono_fijo') }}" type="tel" name="telefono_fijo" class="form-control"
-                                        placeholder="Teléfono fijo">
+                                    <input value="{{ old('telefono_fijo') }}" type="tel" name="telefono_fijo" class="form-control" placeholder="Teléfono fijo">
+                                    <span class="error-message" id="telefono_fijo_error"></span>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
@@ -143,15 +144,15 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                                 <div class="form-group">
                                     <strong>Teléfono móvil:<span class="required">*</span></strong>
-                                    <input value="{{ old('telefono_movil') }}" type="tel" name="telefono_movil" class="form-control"
-                                        placeholder="Teléfono móvil">
+                                    <input value="{{ old('telefono_movil') }}" type="tel" name="telefono_movil" class="form-control" placeholder="Teléfono móvil">
+                                    <span class="error-message" id="telefono_movil_error"></span>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                                 <div class="form-group">
                                     <strong>Plazas disponibles:<span class="required">*</span></strong>
-                                    <input value="{{ old('plazas_disponibles') }}" type="number" name="plazas_disponibles" class="form-control"
-                                        placeholder="Plazas disponibles">
+                                    <input value="{{ old('plazas_disponibles') }}" type="number" name="plazas_disponibles" class="form-control" placeholder="Plazas disponibles">
+                                    <span class="error-message" id="plazas_disponibles_error"></span>
                                 </div>
                             </div>
                             
@@ -188,6 +189,8 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/users/user.css">
+    <link rel="stylesheet" href="/css/companies/company.css">
+
     <link rel="stylesheet" type="text/css" href="/css/tutors/tutor.css">
     <link rel="stylesheet" type="text/css" href="/css/tutors/createTutor.css">
 
@@ -195,5 +198,5 @@
 
 @section('js')
 
-    </script>
+    <script src="/js/companies/createCompany.js"></script>
 @stop

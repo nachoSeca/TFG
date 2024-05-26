@@ -84,7 +84,7 @@ class TrackingController extends Controller
         }
 
         // Verifica si el usuario autenticado tiene permiso para editar este estudiante o si es un administrador
-        if ($tracking->user_id !== auth()->id() && !auth()->user()->hasRole('admin')) {
+        if ($tracking->user_id !== auth()->id() && !auth()->user()->hasRole('admin')  && !auth()->user()->hasRole('tutor')) {
             abort(403, 'No tienes permiso para editar este estudiante.'); // Acceso prohibido
         }
 

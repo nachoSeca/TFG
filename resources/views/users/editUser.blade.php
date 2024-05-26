@@ -31,7 +31,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+            <form id="userForm" action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -50,6 +50,7 @@
                                     <strong>Email:<span class="required">*</span></strong>
                                     <input value="{{ $user->email }}" type="email" name="email" class="form-control"
                                         placeholder="Email">
+                                        <span class="error-message" id="email_error"></span>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
@@ -121,5 +122,5 @@
 
 @section('js')
 
-    </script>
+    <script src="/js/users/editUser.js"></script>
 @stop

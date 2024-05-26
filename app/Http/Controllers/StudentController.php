@@ -125,7 +125,7 @@ class StudentController extends Controller
         }
 
         // Verifica si el usuario autenticado tiene permiso para editar este estudiante o si es un administrador
-        if ($student->user_id !== auth()->id() && !auth()->user()->hasRole('admin')) {
+        if ($student->user_id !== auth()->id() && !auth()->user()->hasRole('admin') && !auth()->user()->hasRole('tutor')) {
             abort(403, 'No tienes permiso para editar este estudiante.'); // Acceso prohibido
         }
         //
@@ -161,6 +161,8 @@ class StudentController extends Controller
             'fecha_fin_fct' => 'nullable',
             'direccion_practicas' => 'nullable',
             'tutor_id' => 'nullable',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Añade la validación para el avatar
+
         ]);
 
         // Verifica si se ha subido un nuevo archivo
@@ -174,15 +176,28 @@ class StudentController extends Controller
             // Actualiza la ruta del archivo en los datos del estudiante
             $datosEstudiante = $request->all();
             $datosEstudiante['subir_cv'] = 'cvs/' . $nombreArchivo;
-
-            // Actualiza el estudiante con los datos modificados
-            $student->update($datosEstudiante);
         } else {
             // Si no se ha subido ningún archivo, deja el campo subir_cv como NULL
-            $student->update($request->except('subir_cv'));
+            $datosEstudiante = $request->except('subir_cv');
         }
 
-        // Redirecciona a la página de índice de estudiantes con un mensaje de éxito
+        // Verifica si se ha subido un nuevo avatar
+        if ($request->hasFile('avatar')) {
+            // Obtiene el nombre del avatar
+            $file = $request->file('avatar');
+            $filename = $file->getClientOriginalName();
+
+            // Guarda el avatar en el almacenamiento (generalmente en storage/app/public)
+            $file->storeAs('avatar', $filename, 'public');
+
+            // Actualiza el avatar en los datos del usuario
+            $student->user->avatar = $filename;
+            $student->user->save();
+        }
+
+        // Actualiza el estudiante con los datos modificados
+        $student->update($datosEstudiante);
+
         return redirect()->route('welcome.index', $student->id)->with('success', 'Estudiante actualizado exitosamente!');
     }
 
@@ -192,9 +207,28 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
+        // Encuentra el estudiante
         $student = Student::find($id);
-        $student->delete();
-        return redirect()->route('students.index')->with('success', 'Estudiante eliminado exitosamente!');
+
+        // Si el estudiante existe
+        if ($student) {
+            // Encuentra el usuario relacionado
+            $user = $student->user;
+
+            // Elimina el usuario si existe
+            if ($user) {
+                $user->delete();
+            }
+
+            // Elimina el estudiante
+            $student->delete();
+
+            // Redirige con un mensaje de éxito
+            return redirect()->route('students.index')->with('success', 'Estudiante eliminado exitosamente!');
+        }
+
+        // Si el estudiante no se encuentra, redirige con un mensaje de error
+        return redirect()->route('students.index')->with('error', 'Estudiante no encontrado.');
     }
 
     public function formDestroy(Student $student)

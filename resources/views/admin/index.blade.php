@@ -19,6 +19,7 @@
                     <div class="icon">
                         <i class="fas fa-users"></i>
                     </div>
+                    
                     <a href="{{ route('users.index') }}" class="small-box-footer">
                         Ver listado <i class="fas fa-arrow-circle-right"></i>
                     </a>
@@ -39,7 +40,7 @@
                     <a href="{{ route('students.index') }}" class="small-box-footer">
                         Ver listado <i class="fas fa-arrow-circle-right"></i>
                     </a>
-                    <a href="{{ route('students.create') }}" class="small-box-footer">
+                    <a href="{{ route('users.create', ['role' => 'student']) }}" class="small-box-footer">
                         Añadir estudiante <i class="fas fa-plus-circle"></i>
                     </a>
                 </div>
@@ -75,7 +76,7 @@
                     <a href="{{ route('tutors.index') }}" class="small-box-footer">
                         Ver listado <i class="fas fa-arrow-circle-right"></i>
                     </a>
-                    <a href="{{ route('tutors.create') }}" class="small-box-footer">
+                    <a href="{{ route('users.create', ['role' => 'tutor']) }}" class="small-box-footer">
                         Añadir tutor <i class="fas fa-plus-circle"></i>
                     </a>
                 </div>

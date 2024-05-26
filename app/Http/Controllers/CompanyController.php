@@ -73,14 +73,14 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        $company = Company::find($id);
-        // Verifica si el estudiante existe
-        if (!$company) {
-            abort(404); // Puedes personalizar el mensaje de error según tus necesidades
-        }
+        // $company = Company::find($id);
+        // // Verifica si el estudiante existe
+        // if (!$company) {
+        //     abort(404); // Puedes personalizar el mensaje de error según tus necesidades
+        // }
 
         // Verifica si el usuario autenticado tiene permiso para editar este estudiante o si es un administrador
-        if ($company->user_id !== auth()->id() && !auth()->user()->hasRole('admin')) {
+        if (!auth()->user()->hasRole('tutor') && !auth()->user()->hasRole('admin')) {
             abort(403, 'No tienes permiso para editar este estudiante.'); // Acceso prohibido
         }
         //
@@ -128,13 +128,15 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
+    
         $company = Company::find($id);
         $company->delete();
-        return redirect()->route('companies.index')->with('success', 'Compañía eliminado exitosamente!');
+        return redirect()->route('companies.index')->with('success', 'Empresa eliminada exitosamente!');
     }
 
     public function formDestroy(Company $company)
     {
+        
         return view('companies.deleteCompany', compact('company'));
     }
 }

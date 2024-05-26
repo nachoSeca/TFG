@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;"">
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <p class="title">Create account</p>
 
         <form class="form" method="POST" action="{{ route('validar-registro') }}" onsubmit="return validate()">

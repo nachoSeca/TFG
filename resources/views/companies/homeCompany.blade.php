@@ -93,11 +93,6 @@
                                             <img src="image/delete.png" alt="" class="icons">
                                         </button>
                                     </form>
-                                    @if ($companie->subir_cv)
-                                        <a href="{{ asset('storage/' . $companie->subir_cv) }}" class="btn" target="_blank">
-                                            <img src="image/pdf.png" alt="" class="icons">
-                                        </a>
-                                    @endif
     
                                 </td>
                             </tr>

@@ -36,27 +36,33 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/login-google', function () {
     return Socialite::driver('google')->redirect();
 })->name('login-google');
-
 Route::get('/google-callback', function () {
     $user = Socialite::driver('google')->user();
-
 
     $userExists = User::where('external_id', $user->id)->where('external_auth', 'google')->first();
     if ($userExists) {
         Auth::login($userExists);
     } else {
-        $newUser = User::create([
-            'name' => $user->name,
-            'email' => $user->email,
-            'avatar' => $user->avatar,
-            'external_id' => $user->id,
-            'external_auth' => 'google',
-        ]);
-        $newUser->assignRole('admin');
+        // Verifica si ya existe un usuario con el rol de 'admin'
+        $existingAdmin = User::role('admin')->first();
 
-        Auth::login($newUser);
+        if ($existingAdmin) {
+            // Ya existe un usuario con el rol de 'admin', maneja el caso adecuadamente (por ejemplo, muestra un mensaje de error)
+            return redirect()->route('login')->withErrors(['role' => 'El admin no se registró con Google o ya existe un admin. Por favor, inicia sesión con tu correo electrónico y contraseña.']);
+        } else {
+            $newUser = User::create([
+                'name' => $user->name,
+                'email' => $user->email,
+                'avatar' => $user->avatar,
+                'external_id' => $user->id,
+                'external_auth' => 'google',
+            ]);
+
+            $newUser->assignRole('admin');
+
+            Auth::login($newUser);
+        }
     }
-    
 
     return redirect()->route('admin.index');
     // $user->token
@@ -83,7 +89,7 @@ Route::get('covers', [CoverController::class, 'index'])->name('covers.index');
 
 Route::get('welcome', function () {
     return view('welcome');
-})->name('welcome.index');
+})->name('welcome.index')->middleware('auth');
 
 
 // Rutas para StudentController con middleware 'role:admin'
@@ -108,7 +114,7 @@ Route::get('tutors/create', [TutorController::class, 'create'])->name('tutors.cr
 Route::post('tutors', [TutorController::class, 'store'])->name('tutors.store')->middleware('role:admin');
 Route::get('tutors/{tutor}', [TutorController::class, 'show'])->name('tutors.show')->middleware('role:tutor');
 Route::get('tutors/{tutor}/edit', [TutorController::class, 'edit'])->name('tutors.edit')->middleware('role:admin|tutor');
-Route::put('tutors/{tutor}', [TutorController::class, 'update'])->name('tutors.update')->middleware('role:admin');
+Route::put('tutors/{tutor}', [TutorController::class, 'update'])->name('tutors.update')->middleware('role:admin|tutor');
 Route::delete('tutors/{tutor}', [TutorController::class, 'destroy'])->name('tutors.destroy')->middleware('role:admin');
 
 
@@ -142,8 +148,8 @@ Route::delete('trackings/{tracking}', [TrackingController::class, 'destroy'])->n
 
 // Rutas para UserController
 Route::get('users', [UserController::class, 'index'])->name('users.index')->middleware('role:admin');
-Route::get('users/create', [UserController::class, 'create'])->name('users.create')->middleware('role:admin');
-Route::post('users', [UserController::class, 'store'])->name('users.store')->middleware('role:admin');
+Route::get('users/create', [UserController::class, 'create'])->name('users.create')->middleware('role:admin|tutor');
+Route::post('users', [UserController::class, 'store'])->name('users.store')->middleware('role:admin|tutor');
 Route::get('users/{user}', [UserController::class, 'show'])->name('users.show')->middleware('role:admin');
 Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit')->middleware('role:admin');
 Route::put('users/{user}', [UserController::class, 'update'])->name('users.update')->middleware('role:admin');
@@ -166,13 +172,13 @@ Route::get('/students/{student}/delete', [StudentController::class, 'formDestroy
 Route::get('/tutors/{tutor}/delete', [TutorController::class, 'formDestroy'])->name('tutors.delete')->middleware('role:admin');
 
 // Ruta para eliminar una empresa con un formulario de confirmación
-Route::get('/companies/{company}/delete', [CompanyController::class, 'formDestroy'])->name('companies.delete')->middleware('role:admin');
+Route::get('/companies/{company}/delete', [CompanyController::class, 'formDestroy'])->name('companies.delete')->middleware('role:admin|tutor');
 
 // Ruta para eliminar un usuario con un formulario de confirmación
 Route::get('/users/{user}/delete', [UserController::class, 'formDestroy'])->name('users.delete')->middleware('role:admin');
 
 // Ruta para eliminar un seguimiento con un formulario de confirmación
-Route::get('/trackings/{tracking}/delete', [TrackingController::class, 'formDestroy'])->name('trackings.delete')->middleware('role:admin');
+Route::get('/trackings/{tracking}/delete', [TrackingController::class, 'formDestroy'])->name('trackings.delete')->middleware('role:admin|tutor');
 
 // Ruta para eliminar un curso con un formulario de confirmación
 Route::get('/courses/{course}/delete', [CourseController::class, 'formDestroy'])->name('courses.delete')->middleware('role:admin');
@@ -196,6 +202,14 @@ Route::get('/courses/{course}/delete', [CourseController::class, 'formDestroy'])
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('role:admin');
 
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::group(['middleware' => 'auth'], function ()
+{
+    Route::get('/change-password', [UserController::class, 'changePassword'])->name('changePassword');
+    Route::post('/change-password', [UserController::class, 'changePasswordSave'])->name('postChangePassword');
+});

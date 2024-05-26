@@ -42,7 +42,7 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ route('tutors.update', $tutor->id) }}" method="POST" enctype="multipart/form-data">
+        <form id="tutorForm" action="{{ route('tutors.update', $tutor->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="row">
@@ -61,6 +61,7 @@
                                 <strong>Email:<span class="required">*</span></strong>
                                 <input value="{{ $tutor->email }}" type="email" name="email" class="form-control"
                                     placeholder="Email">
+                                    <span class="error-message" id="email_error"></span>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
@@ -68,6 +69,8 @@
                                 <strong>Teléfono móvil:<span class="required">*</span></strong>
                                 <input value="{{ $tutor->telefono_movil }}" type="text" name="telefono_movil"
                                     class="form-control" placeholder="Teléfono móvil">
+                                    <span class="error-message" id="telefono_movil_error"></span>
+
                             </div>
                         </div>
 
@@ -87,6 +90,25 @@
                                 <strong>Usuario:</strong>
                                 <input value="{{ $tutor->user->id }}" type="hidden" name="user_id">
                                 <input value="{{ $tutor->user->name }}" type="text" class="form-control" placeholder="user_id" readonly>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>Avatar actual:</strong>
+                                @if (filter_var($avatar, FILTER_VALIDATE_URL))
+                                    <!-- Si el avatar es una URL, asumimos que es un usuario de Google -->
+                                    <img src="{{ $avatar }}" alt="Avatar del usuario" style="width: 100px">
+                                @else
+                                    <!-- Si no es una URL, asumimos que es un usuario normal y la imagen está en el storage -->
+                                    <img src="{{ asset('storage/avatar/' . $avatar) }}" alt="Avatar del usuario" style="width: 100px">
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 mt-4">
+                            <div class="form-group">
+                                <strong>Avatar:</strong>
+                                <input value="{{ old('avatar') }}" type="file" name="avatar"
+                                    class="form-control" id="formFile">
                             </div>
                         </div>
                         {{-- <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
@@ -130,5 +152,5 @@
 @stop
 
 @section('js')
-
+    <script src="/js/tutors/editTutor.js"></script>
 @stop

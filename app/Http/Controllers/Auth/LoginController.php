@@ -42,8 +42,8 @@ class LoginController extends Controller
     // }
 
     public function register(Request $request)
-    // Cuidado, hay que hacer las validaciones antes (En teoría están)
     {
+        // Cuidado, hay que hacer las validaciones antes (En teoría están)
         $existingUser = User::where('email', $request->email)->first();
 
         if ($existingUser) {
@@ -52,18 +52,30 @@ class LoginController extends Controller
                 'email' => 'Este correo electrónico ya está registrado',
             ]);
         } else {
-            // El correo electrónico no existe, crea el nuevo usuario
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ]);
+            // Verifica si ya existe un usuario con el rol de 'admin'
+            $existingAdmin = User::role('admin')->first();
 
-            // Darle un rol al usuario
-            $user->assignRole('admin');
+            if ($existingAdmin) {
+                // Ya existe un usuario con el rol de 'admin', maneja el caso adecuadamente (por ejemplo, muestra un mensaje de error)
+                return back()->withErrors([
+                    'role' => 'Ya existe un usuario con el rol de administrador',
+                ]);
+            } else {
+                // El correo electrónico no existe y no hay un usuario con el rol de 'admin', crea el nuevo usuario
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'avatar' => 'avatar.png', // Asigna el avatar por defecto
 
-            Auth::login($user);
-            return redirect(route('students.index'));
+                ]);
+
+                // Darle un rol al usuario
+                $user->assignRole('admin');
+
+                Auth::login($user);
+                return redirect(route('admin.index'));
+            }
         }
     }
 
@@ -86,7 +98,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            
+
             return redirect()->intended(route('welcome.index'));
         } else {
             return back()->withErrors([

@@ -9,6 +9,9 @@ use Spatie\Permission\Models\Role;
 use App\Models\Student;
 use App\Models\Tutor;
 use App\Models\Course;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -108,7 +111,7 @@ class UserController extends Controller
         $roles = Role::where('name', $request->roles)->get()->pluck('id');
         $user->roles()->attach($roles);
 
-        return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente!');
+        return redirect()->route('welcome.index')->with('success', 'Usuario creado exitosamente!');
     }
 
     /**
@@ -217,4 +220,32 @@ class UserController extends Controller
     {
         return view('users.deleteUser', compact('user'));
     }
+
+    public function changePassword()
+{
+    return view('users.change-password');
+}
+
+public function changePasswordSave(Request $request)
+{
+    $request->validate([
+        'current_password' => ['required', 'string'],
+        'new_password' => ['required', 'string', 'min:8', 'confirmed'],
+    ]);
+
+    $user = Auth::user();
+
+    if (!$user->password) {
+        return back()->withErrors(['current_password' => 'No puedes cambiar la contraseña de una cuenta de Google desde aquí.']);
+    }
+
+    if (!Hash::check($request->current_password, $user->password)) {
+        return back()->withErrors(['current_password' => 'La contraseña actual es incorrecta']);
+    }
+
+    $user->password = Hash::make($request->new_password);
+    $user->save();
+
+    return redirect()->route('welcome.index')->with('success', 'Contraseña cambiada exitosamente!');
+}
 }

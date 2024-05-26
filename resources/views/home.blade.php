@@ -6,17 +6,18 @@
     <link rel="stylesheet" href="css/style.css">
 
 
-    <!-- Floating Button -->
-    <button onclick="window.location.href='#section1'" class="Btn" id="floating-button">
-        <svg height="1.2em" class="arrow" viewBox="0 0 512 512">
-            <path
-                d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z">
-            </path>
-        </svg>
-    </button>
-
     <!-- Initial container -->
     <div class="container-fluid" id="inicio">
+        @if ($errors->any())
+            <div class="alert alert-danger mt-2">
+                <strong>Por las chancas de mi madre!</strong> Algo fue mal..<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div id="section1" class="vh-100 text-white d-flex justify-content-center align-items-center">
             <section>
                 <h1>
@@ -38,7 +39,12 @@
                 <br />
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">
-                        <button onclick="window.location.href='{{ route('login') }}'">Inicio Sesión</button>
+                        @guest
+                            <button onclick="window.location.href='{{ route('login') }}'">Inicio Sesión</button>
+                        @endguest
+                        @auth
+                            <button onclick="window.location.href='{{ route('welcome.index') }}'">Ir a Welcome</button>
+                        @endauth
                     </div>
                 </div>
             </section>

@@ -3,21 +3,32 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    {{-- <h1>Nuevo Usuario</h1> --}}
 @stop
 
 @section('content')
     <div class="container-fluid">
         <h1 class="text-center">Nuevo usuario</h1>
         <div class="row">
-            <div class="col-12">
-                <div class="button_return">
-                    <a href="{{ route('users.index') }}" class="form-btn">
-                        <img src="/image/volver.png" alt="" class="icons">
-                        Volver
-                    </a>
+            @can('total')
+                <div class="col-12">
+                    <div class="button_return">
+                        <a href="{{ route('users.index') }}" class="form-btn">
+                            <img src="/image/volver.png" alt="" class="icons">
+                            Volver
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcan
+            @can('tutors.show')
+                <div class="col-12">
+                    <div class="button_return">
+                        <a href="{{ route('students.index') }}" class="form-btn">
+                            <img src="/image/volver.png" alt="" class="icons">
+                            Volver
+                        </a>
+                    </div>
+                </div>
+            @endcan
 
             {{-- Mostramos mensaje de que algo salio mal --}}
             @if ($errors->any())
@@ -30,7 +41,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
+            <form id="userForm" action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row">
@@ -49,13 +60,27 @@
                                     <strong>Email:<span class="required">*</span></strong>
                                     <input value="{{ old('email') }}" type="email" name="email" class="form-control"
                                         placeholder="Email">
+                                        <span class="error-message" id="email_error"></span>
+
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                                 <div class="form-group">
                                     <strong>Password:<span class="required">*</span></strong>
                                     <input value="{{ old('password') }}" type="password" name="password"
-                                        class="form-control" placeholder="Password">
+                                        class="form-control" placeholder="Password" id="password">
+                                        <span class="error-message" id="password_error"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
+                                <div class="form-group">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            onclick="mostrarPass()" id="check">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar Contraseña
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
@@ -69,20 +94,22 @@
                                 <div class="form-group">
                                     <strong>Rol:<span class="required">*</span></strong>
                                     <div>
-                                        <label class="cl-radio" for="admin">
-                                            <input type="radio" id="admin" name="roles" value="admin"
-                                                class="cl-radio" {{ request('role') == 'admin' ? 'checked' : '' }}>
-                                            <span>Admin</span>
-                                        </label>
-                                    </div>
+                                        @can('total')
+                                            <label class="cl-radio" for="admin">
+                                                <input type="radio" id="admin" name="roles" value="admin"
+                                                    class="cl-radio" {{ request('role') == 'admin' ? 'checked' : '' }}>
+                                                <span>Admin</span>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="cl-radio" for="tutor">
+                                                <input type="radio" id="tutor" name="roles" value="tutor"
+                                                    class="cl-radio" {{ request('role') == 'tutor' ? 'checked' : '' }}>
+                                                <span>Tutor</span>
+                                            </label>
+                                        </div>
+                                    @endcan
 
-                                    <div>
-                                        <label class="cl-radio" for="tutor">
-                                            <input type="radio" id="tutor" name="roles" value="tutor"
-                                                class="cl-radio" {{ request('role') == 'tutor' ? 'checked' : '' }}>
-                                            <span>Tutor</span>
-                                        </label>
-                                    </div>
                                     <div>
                                         <label class="cl-radio" for="student">
                                             <input type="radio" id="student" name="roles" value="student"
@@ -119,42 +146,5 @@
 @stop
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.colVis.min.js"></script>
-    <script src='build/pdfmake.min.js'></script> {{-- <script src="//cdn.datatables.net/plug-ins/2.0.3/i18n/es-ES.json"></script> --}}
-    <script>
-        let table = new DataTable('#myTable', {
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/2.0.3/i18n/es-ES.json',
-            },
-            dom: 'Bfrtip',
-            buttons: [{
-                    extend: 'print',
-                    className: 'form-btn', // Aquí añades la clase
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'colvis',
-                    className: 'form-btn' // Aquí añades la clase
-                }
-            ],
-            columnDefs: [{
-                targets: -1,
-                visible: false
-            }]
-        });
-    </script>
+    <script src="/js/users/createUser.js"></script>
 @stop

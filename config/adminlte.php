@@ -137,7 +137,7 @@ return [
     'usermenu_header_class' => 'bg-white',
     'usermenu_image' => true,
     'usermenu_desc' => true,
-    'usermenu_profile_url' => false,
+    'usermenu_profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -256,13 +256,13 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'welcome',
+    // 'dashboard_url' => 'welcome',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -368,11 +368,17 @@ return [
         ],
         ['header' => 'account_settings'],
         [
-            'text' => 'Perfil Admin',
+            'text' => 'Dashboard Admin',
             'can' => 'total',
             'url' => '/admin',
             'icon' => 'fas fa-fw fa-user',
         ],
+        // [
+        //     'text' => 'Perfil Admin',
+        //     'can' => 'total',
+        //     'url' => 'admin/show',
+        //     'icon' => 'fas fa-fw fa-user',
+        // ],
         [
             'text' => 'Perfil Estudiante',
             'can' => 'students.show',

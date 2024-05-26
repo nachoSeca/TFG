@@ -11,6 +11,8 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
+    'required' => 'El campo :attribute es obligatorio.',
+    'confirmed' => 'El campo :attribute de confirmación no coincide.',
 
     'accepted' => 'El campo :attribute debe ser aceptado.',
     'active_url' => 'El campo :attribute no es una URL válida.',
@@ -143,6 +145,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'current_password' => 'contraseña actual',
+        'new_password' => 'nueva contraseña',
+        'new_password_confirmation' => 'confirmación de la nueva contraseña',
+    ],
 
 ];

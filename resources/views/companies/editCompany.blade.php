@@ -32,7 +32,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('companies.update', $company->id) }}" method="POST">
+            <form id="companieForm" action="{{ route('companies.update', $company->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -52,6 +52,7 @@
                                     <strong>Código Postal:<span class="required">*</span></strong>
                                     <input value="{{ $company->codigo_postal }}" type="text" name="codigo_postal"
                                         class="form-control" placeholder="Código postal">
+                                        <span class="error-message" id="codigo_postal_error"></span> <!-- Span para mostrar mensaje de error -->
                                 </div>
                             </div>
 
@@ -75,6 +76,8 @@
                                     <strong>Email contacto:<span class="required">*</span></strong>
                                     <input value="{{ $company->email_contacto }}" type="email" name="email_contacto"
                                         class="form-control" placeholder="Email Contacto">
+                                        <span class="error-message" id="email_contacto_error"></span> <!-- Span para mostrar mensaje de error -->
+
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
@@ -82,6 +85,8 @@
                                     <strong>Teléfono fijo:</strong>
                                     <input value="{{ $company->telefono_fijo }}" type="tel" name="telefono_fijo"
                                         class="form-control" placeholder="Teléfono fijo">
+                                        <span class="error-message" id="telefono_fijo_error"></span> <!-- Span para mostrar mensaje de error -->
+
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
@@ -147,6 +152,8 @@
                                     <strong>Teléfono móvil:<span class="required">*</span></strong>
                                     <input value="{{ $company->telefono_movil }}" type="tel" name="telefono_movil"
                                         class="form-control" placeholder="Teléfono móvil">
+                                        <span class="error-message" id="telefono_movil_error"></span> <!-- Span para mostrar mensaje de error -->
+
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
@@ -154,6 +161,7 @@
                                     <strong>Plazas disponibles:<span class="required">*</span></strong>
                                     <input value="{{ $company->plazas_disponibles }}" type="number"
                                         name="plazas_disponibles" class="form-control" placeholder="Plazas disponibles">
+                                        <span class="error-message" id="plazas_disponibles_error"></span> <!-- Span para mostrar mensaje de error -->
                                 </div>
                             </div>
 
@@ -197,5 +205,5 @@
     @stop
 
     @section('js')
-
+        <script src="/js/companies/editCompany.js"></script>
     @stop
