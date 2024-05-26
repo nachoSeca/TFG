@@ -104,7 +104,7 @@ class UserController extends Controller
             $user->save();
         } else {
             // Establecer el avatar a un valor por defecto si no se ha subido ningún archivo
-            $user->avatar = 'avatar.png';
+            $user->avatar = 'image/avatar.png';
             $user->save();
         }
 
