@@ -48,12 +48,16 @@ class TrackingController extends Controller
             // Obtiene el nombre del archivo
             $nombreArchivo = $request->file('pdf_seguimiento')->getClientOriginalName();
 
+            // Limpia el nombre del archivo
+            $nombreArchivo = preg_replace('/[^A-Za-z0-9.\-\']/', '_', $nombreArchivo);
+            // Limita el nombre del archivo a 255 caracteres
+            $nombreArchivo = substr($nombreArchivo, 0, 255);
             // Guarda el archivo en el almacenamiento (generalmente en storage/app/public)
             $rutaArchivo = $request->file('pdf_seguimiento')->storeAs('public/seguimientos', $nombreArchivo);
 
-            // Agrega la ruta del archivo al array de datos del estudiante
+            // Agrega la ruta del archivo al array de datos del seguimiento
             $datosSeguimiento = $request->all();
-            $datosSeguimiento['pdf_seguimiento'] = $nombreArchivo;
+            $datosSeguimiento['pdf_seguimiento'] = 'seguimientos/' . $nombreArchivo;
         } else {
             // Si no se ha subido ningún archivo, deja el campo subir_cv como NULL
             $datosSeguimiento = $request->except('pdf_seguimiento');
@@ -117,12 +121,16 @@ class TrackingController extends Controller
             // Obtiene el nombre del archivo
             $nombreArchivo = $request->file('pdf_seguimiento')->getClientOriginalName();
 
+            // Limpia el nombre del archivo
+            $nombreArchivo = preg_replace('/[^A-Za-z0-9.\-\']/', '_', $nombreArchivo);
+            // Limita el nombre del archivo a 255 caracteres
+            $nombreArchivo = substr($nombreArchivo, 0, 255);
             // Guarda el archivo en el almacenamiento (generalmente en storage/app/public)
             $rutaArchivo = $request->file('pdf_seguimiento')->storeAs('public/seguimientos', $nombreArchivo);
 
-            // Agrega la ruta del archivo al array de datos del estudiante
+            // Agrega la ruta del archivo al array de datos del seguimiento
             $datosSeguimiento = $request->all();
-            $datosSeguimiento['pdf_seguimiento'] = $nombreArchivo;
+            $datosSeguimiento['pdf_seguimiento'] = 'seguimientos/' . $nombreArchivo;
         } else {
             // Si no se ha subido ningún archivo, deja el campo subir_cv como NULL
             $datosSeguimiento = $request->except('pdf_seguimiento');

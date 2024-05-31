@@ -62,6 +62,10 @@ class StudentController extends Controller
             // Obtiene el nombre del archivo
             $nombreArchivo = $request->file('subir_cv')->getClientOriginalName();
 
+            // Limpia el nombre del archivo
+            $nombreArchivo = preg_replace('/[^A-Za-z0-9.\-\']/', '_', $nombreArchivo);
+            // Limita el nombre del archivo a 255 caracteres
+            $nombreArchivo = substr($nombreArchivo, 0, 255);
             // Guarda el archivo en el almacenamiento (generalmente en storage/app/public)
             $rutaArchivo = $request->file('subir_cv')->storeAs('public/cvs', $nombreArchivo);
 
@@ -170,10 +174,14 @@ class StudentController extends Controller
             // Obtiene el nombre del archivo
             $nombreArchivo = $request->file('subir_cv')->getClientOriginalName();
 
+            // Limpia el nombre del archivo
+            $nombreArchivo = preg_replace('/[^A-Za-z0-9.\-\']/', '_', $nombreArchivo);
+            // Limita el nombre del archivo a 255 caracteres
+            $nombreArchivo = substr($nombreArchivo, 0, 255);
             // Guarda el archivo en el almacenamiento (generalmente en storage/app/public)
             $rutaArchivo = $request->file('subir_cv')->storeAs('public/cvs', $nombreArchivo);
 
-            // Actualiza la ruta del archivo en los datos del estudiante
+            // Agrega la ruta del archivo al array de datos del estudiante
             $datosEstudiante = $request->all();
             $datosEstudiante['subir_cv'] = 'cvs/' . $nombreArchivo;
         } else {

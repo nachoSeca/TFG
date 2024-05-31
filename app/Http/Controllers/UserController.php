@@ -97,14 +97,14 @@ class UserController extends Controller
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $filename = $file->getClientOriginalName();
-            $file->storeAs('avatar', $filename, 'public');
-
+            $file->storeAs('image', $filename, 'public'); // Cambia 'avatar' a 'image'
+        
             $user->avatar = $filename;
-
+        
             $user->save();
         } else {
             // Establecer el avatar a un valor por defecto si no se ha subido ningún archivo
-            $user->avatar = 'image/avatar.png';
+            $user->avatar = 'image/Avatar.png';
             $user->save();
         }
 

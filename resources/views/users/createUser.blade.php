@@ -33,7 +33,7 @@
             {{-- Mostramos mensaje de que algo salio mal --}}
             @if ($errors->any())
                 <div class="alert alert-danger mt-2">
-                    <strong>Por las chancas de mi madre!</strong> Algo fue mal..<br><br>
+                    <strong>Vaya!</strong> Algo fue mal..<br><br>
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('fecha_seguimiento');
             $table->string('observaciones', 255);
-            $table->string('pdf_seguimiento', 50)->nullable();
+            $table->string('pdf_seguimiento', 255)->nullable();
             $table->unsignedBigInteger('tutor_id')->nullable();
             $table->unsignedBigInteger('student_id')->nullable();
 

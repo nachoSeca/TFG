@@ -27,7 +27,7 @@
         {{-- Mostramos mensaje de que algo salio mal --}}
         @if ($errors->any())
             <div class="alert alert-danger mt-2">
-                <strong>Por las chancas de mi madre!</strong> Algo fue mal..<br><br>
+                <strong>Vaya!</strong> Algo fue mal..<br><br>
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -72,7 +72,7 @@
                                         </button>
                                     </form>
                                     @if ($tracking->pdf_seguimiento)
-                                        <a href="{{ asset('storage/seguimientos/' . $tracking->pdf_seguimiento) }}" class="btn"
+                                        <a href="{{ asset('storage/' . $tracking->pdf_seguimiento) }}" class="btn"
                                             target="_blank">
                                             <img src="image/pdf.png" alt="" class="icons">
                                         </a>
