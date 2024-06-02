@@ -77,8 +77,8 @@ class UserController extends Controller
         if ($roles == 'student') {
             // Crea el registro del estudiante con user_id establecido automáticamente
             $estudiante = Student::create([
-                'name' => $request->name, // Opcional: copiar nombre del usuario para conveniencia
-                'email' => $request->email, // Opcional: podría ser redundante pero se incluye para claridad
+                'name' => $request->name, 
+                'email' => $request->email, 
                 'user_id' => $user->id, // Establecer user_id al ID del usuario recién creado
                 'course_id' => $course->id, // Establecer course_id al ID del primer curso disponible
             ]);
@@ -87,8 +87,8 @@ class UserController extends Controller
         if ($roles == 'tutor') {
             // Crea el registro del tutor con user_id establecido automáticamente
             $tutor = Tutor::create([
-                'name' => $request->name, // Opcional: copiar nombre del usuario para conveniencia
-                'email' => $request->email, // Opcional: podría ser redundante pero se incluye para claridad
+                'name' => $request->name, 
+                'email' => $request->email, 
                 'user_id' => $user->id, // Establecer user_id al ID del usuario recién creado
             ]);
         }

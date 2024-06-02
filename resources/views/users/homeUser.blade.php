@@ -3,7 +3,6 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    {{-- <h1>Listado de usuarios</h1> --}}
 @stop
 
 @section('content')
@@ -13,7 +12,6 @@
             <div class="col-12">
                 <div>
                     @can('total')
-                        {{-- Modoficar las rutas --}}
                         <a href="{{ route('users.create') }}" class="form-btn">Añadir usuario</a>
                     @endcan
                 </div>

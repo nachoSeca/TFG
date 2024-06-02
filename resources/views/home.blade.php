@@ -4,13 +4,10 @@
 
 @section('content')
     <link rel="stylesheet" href="css/style.css">
-
-
-    <!-- Initial container -->
     <div class="container-fluid" id="inicio">
         @if ($errors->any())
             <div class="alert alert-danger mt-2">
-                <strong>Por las chancas de mi madre!</strong> Algo fue mal..<br><br>
+                <strong>Vaya!</strong> Algo fue mal..<br><br>
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -50,11 +47,6 @@
             </section>
         </div>
     </div>
-
-    <!-- Main container section 3 -->
-
-
-    <!-- Main container section 2 -->
 
 
 @endsection

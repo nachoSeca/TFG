@@ -17,26 +17,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        /**
-         * Admin => all
-         * Tutor => view, create, update
-         * Student => view
-         */
-
-        // $admin = Role::create(['name' => 'admin']);
-        // $tutor = Role::create(['name' => 'tutor']);
-        // $student = Role::create(['name' => 'student']);
-
-        // Permission::create(['name' => 'dashboard'])->syncRoles([$admin, $tutor]);
-        // Permission::create(['name' => 'tutors.index'])->syncRoles([$admin, $tutor]);
-        // Permission::create(['name' => 'tutors.show'])->syncRoles([$admin, $tutor]);
-        // Permission::create(['name' => 'tutors.create'])->syncRoles([$admin, $tutor]);
-        // Permission::create(['name' => 'tutors.store'])->syncRoles([$admin, $tutor]);;
-        // Permission::create(['name' => 'tutors.edit'])->syncRoles([$admin, $tutor]);;
-        // Permission::create(['name' => 'tutors.update'])->syncRoles([$admin, $tutor]);;
-        // Permission::create(['name' => 'tutors.destroy'])->syncRoles([$admin]);;
-
-
+   
 
 
 

@@ -70,30 +70,10 @@ Route::get('/google-callback', function () {
 
 // Fin de las rutas para el login con Google
 
-// Route::group(['middleware' => ['role:admin']], function () {
-//     Route::resources([
-//         'students' => StudentController::class,
-//         'tutors' => TutorController::class,
-//         'companies' => CompanyController::class,
-//         'trackings' => TrackingController::class,
-//         'users' => UserController::class,
-//     ]);
-
-// Ruta general
-// Route::get('/portada', function () {
-//     return view('portada');
-// })->name('portada');
-
-// Ruta para la portada
-Route::get('covers', [CoverController::class, 'index'])->name('covers.index');
 
 Route::get('welcome', function () {
     return view('welcome');
 })->name('welcome.index')->middleware('auth');
-
-
-// Rutas para StudentController con middleware 'role:admin'
-// Route::resource('students', StudentController::class)->middleware('role:student|admin');
 
 //RUTAS ESTUDIANTES CON ROLES
 Route::get('students', [StudentController::class, 'index'])->name('students.index')->middleware('role:tutor|admin');
@@ -104,10 +84,6 @@ Route::get('students/{student}/edit', [StudentController::class, 'edit'])->name(
 Route::put('students/{student}', [StudentController::class, 'update'])->name('students.update')->middleware('role:admin|tutor|student');
 Route::delete('students/{student}', [StudentController::class, 'destroy'])->name('students.destroy')->middleware('role:admin');
 
-
-// Rutas para TutorController con middleware 'role:tutor'
-// Route::resource('tutors', TutorController::class)->middleware('role:tutor|admin');
-
 // Rutas para TutorController
 Route::get('tutors', [TutorController::class, 'index'])->name('tutors.index')->middleware('role:admin');
 Route::get('tutors/create', [TutorController::class, 'create'])->name('tutors.create')->middleware('role:admin');
@@ -116,10 +92,6 @@ Route::get('tutors/{tutor}', [TutorController::class, 'show'])->name('tutors.sho
 Route::get('tutors/{tutor}/edit', [TutorController::class, 'edit'])->name('tutors.edit')->middleware('role:admin|tutor');
 Route::put('tutors/{tutor}', [TutorController::class, 'update'])->name('tutors.update')->middleware('role:admin|tutor');
 Route::delete('tutors/{tutor}', [TutorController::class, 'destroy'])->name('tutors.destroy')->middleware('role:admin');
-
-
-// Rutas para CompanyController con middleware 'role:company'
-// Route::resource('companies', CompanyController::class)->middleware('role:company|admin');
 
 // Rutas para CompanyController
 Route::get('companies', [CompanyController::class, 'index'])->name('companies.index')->middleware('role:admin|tutor');
@@ -130,10 +102,6 @@ Route::get('companies/{company}/edit', [CompanyController::class, 'edit'])->name
 Route::put('companies/{company}', [CompanyController::class, 'update'])->name('companies.update')->middleware('role:admin|tutor');
 Route::delete('companies/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy')->middleware('role:admin|tutor');
 
-
-// Rutas para TrackingController con middleware 'role:tracking'
-// Route::resource('trackings', TrackingController::class)->middleware('role:tutor|admin');
-
 // Rutas para TrackingController
 Route::get('trackings', [TrackingController::class, 'index'])->name('trackings.index')->middleware('role:tutor|admin');
 Route::get('trackings/create', [TrackingController::class, 'create'])->name('trackings.create')->middleware('role:admin|tutor');
@@ -142,9 +110,6 @@ Route::get('trackings/{tracking}', [TrackingController::class, 'show'])->name('t
 Route::get('trackings/{tracking}/edit', [TrackingController::class, 'edit'])->name('trackings.edit')->middleware('role:admin|tutor');
 Route::put('trackings/{tracking}', [TrackingController::class, 'update'])->name('trackings.update')->middleware('role:admin|tutor');
 Route::delete('trackings/{tracking}', [TrackingController::class, 'destroy'])->name('trackings.destroy')->middleware('role:admin|tutor');
-
-// Rutas para UserController con middleware 'role:user'
-// Route::resource('users', UserController::class)->middleware('role:admin');
 
 // Rutas para UserController
 Route::get('users', [UserController::class, 'index'])->name('users.index')->middleware('role:admin');
@@ -183,30 +148,11 @@ Route::get('/trackings/{tracking}/delete', [TrackingController::class, 'formDest
 // Ruta para eliminar un curso con un formulario de confirmación
 Route::get('/courses/{course}/delete', [CourseController::class, 'formDestroy'])->name('courses.delete')->middleware('role:admin');
 
-// Route::group([], function () {
-//     Route::resources([
-//         'students' => StudentController::class,
-//         'tutors' => TutorController::class,
-//         'companies' => CompanyController::class,
-//         'trackings' => TrackingController::class,
-//         'users' => UserController::class,
-//     ]);
-
-
-
-
-// Ruta para el login admin
-// Route::get('/admin/index', [AdminController::class, 'index'])
-//     ->name('admin.index')
-//     ->middleware('role:admin'); // Asegúrate de que 'auth' es el nombre de tu middleware
-
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('role:admin');
-
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
 Route::group(['middleware' => 'auth'], function ()
 {

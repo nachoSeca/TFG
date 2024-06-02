@@ -52,7 +52,7 @@ class TrackingController extends Controller
             $nombreArchivo = preg_replace('/[^A-Za-z0-9.\-\']/', '_', $nombreArchivo);
             // Limita el nombre del archivo a 255 caracteres
             $nombreArchivo = substr($nombreArchivo, 0, 255);
-            // Guarda el archivo en el almacenamiento (generalmente en storage/app/public)
+            // Guarda el archivo en el almacenamiento 
             $rutaArchivo = $request->file('pdf_seguimiento')->storeAs('public/seguimientos', $nombreArchivo);
 
             // Agrega la ruta del archivo al array de datos del seguimiento

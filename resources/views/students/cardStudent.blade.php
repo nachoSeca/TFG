@@ -30,7 +30,6 @@
             <div class="row">
                 <div class="col-lg-4 col-md-5 xs-margin-30px-bottom d-flex flex-column align-items-center ">
                     <div class="team-single-img">
-                        {{-- <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""> --}}
                         <img src="{{ asset('storage/avatar/' . $avatar) }}" alt="Avatar del usuario" id="avatar">
                     </div><br>
                     <ul class="list-style9 no-margin">

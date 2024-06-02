@@ -43,7 +43,6 @@ class LoginController extends Controller
 
     public function register(Request $request)
     {
-        // Cuidado, hay que hacer las validaciones antes (En teoría están)
         $existingUser = User::where('email', $request->email)->first();
 
         if ($existingUser) {
@@ -80,13 +79,11 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    // Cuidado, hay que hacer las validaciones antes (En teoría están)
     {
         $credentials = [
             'email' => $request->email,
             'password' => $request->password,
         ];
-        // dd($credentials, Auth::attempt($credentials)); // Aquí se detendrá la ejecución y se imprimirán las variables
 
         // Comprobar si el usuario se autenticó mediante Google
         $user = User::where('email', $request->email)->first();

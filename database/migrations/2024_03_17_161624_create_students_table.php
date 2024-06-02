@@ -31,7 +31,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('tutor_id')->references('id')->on('tutors')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('set null')->onUpdate('cascade');
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('set null')->onUpdate('cascade'); // Cambia esto a 'set null'
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('set null')->onUpdate('cascade'); 
         
             $table->timestamps();
         });

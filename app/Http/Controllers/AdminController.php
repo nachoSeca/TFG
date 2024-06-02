@@ -27,21 +27,6 @@ class AdminController extends Controller
      */
     public function show()
     {
-        // $user = auth()->user();
-        // if (!$user) {
-        //     // Manejar el caso cuando el usuario no está autenticado
-        //     return redirect()->back()->with('error', 'Usuario no autenticado');
-        // }
-    
-        // $admin = $user->admin; // Acceder al perfil de administrador del usuario
-        // if (!$admin) {
-        //     // Manejar el caso cuando no se encuentra el administrador
-        //     return redirect()->back()->with('error', 'Admin no encontrado');
-        // }
-    
-        // $avatar = $user->avatar; // Obtener el avatar del usuario
-        // $roles = $user->roles;
-    
-        // return view('admin.cardAdmin', compact('admin', 'user', 'avatar', 'roles'));
+       
     }
 }

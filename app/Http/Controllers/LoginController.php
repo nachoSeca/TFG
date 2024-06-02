@@ -37,7 +37,6 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    // Cuidado, hay que hacer las validaciones antes (En teoría están)
     {
         $credentials = [
             'email' => $request->email,
@@ -61,21 +60,6 @@ class LoginController extends Controller
                 'email' => 'Las credenciales no coinciden',
             ]);
         }
-
-        // if (Auth::attempt($credentials)) {
-        //     $request->session()->regenerate();
-
-        //     // Redirigir según el rol del usuario
-        //     if (Auth::user()->roles->contains('name', 'admin')) {
-        //         return redirect(route('admin.index'));
-        //     } else {
-        //         return redirect(route('students.index'));
-        //     }
-        // } else {
-        //     return back()->withErrors([
-        //         'email' => 'Las credenciales no coinciden',
-        //     ]);
-        // }
     }
 
     public function logout(Request $request)

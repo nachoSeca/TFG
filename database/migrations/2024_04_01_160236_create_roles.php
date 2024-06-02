@@ -55,17 +55,6 @@ return new class extends Migration
         Permission::create(['name' => 'courses.edit'])->syncRoles([$role1]);
         Permission::create(['name' => 'courses.create'])->syncRoles([$role1]);
         Permission::create(['name' => 'courses.destroy'])->syncRoles([$role1]);
-
-        Permission::create(['name' => 'covers.index'])->syncRoles([$role1, $role2, $role3]);
-
-
-
-
-        
-
-        
-
-
     }
 
     /**
