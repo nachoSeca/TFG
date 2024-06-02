@@ -21,5 +21,7 @@ class Course extends Model
         return $this->hasMany(Company::class);
     }
 
+    protected $fillable = ['nombre'];
+
     
 }

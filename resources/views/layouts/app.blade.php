@@ -11,18 +11,83 @@
     {{-- FAVICON --}}
     <link rel="icon" href="{{ asset('favicon.ico') }}">
 
-    {{-- Tabulator --}}
+    {{-- Tabulator
     <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
 
     {{-- DATATABLES --}}
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
-    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script> --}}
+
+    {{-- CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/orderFilter.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+
+
     @yield('styles')
     <title>@yield('title')</title>
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50" class="animated">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top" id="navbar">
+        <a class="navbar-brand d-flex align-items-center" href="{{ route('tutors.index') }}">
+            <img src="/image/logo.png" alt="Logo" width="50" height="40"
+                class="d-inline-block align-text-top">
+            <span class="ms-2">PractiHub</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
+                {{-- @role('admin') --}}
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::currentRouteName() == 'tutors.index' ? 'active' : '' }}"
+                        aria-current="page" href="{{ route('tutors.index') }}">Tutores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::currentRouteName() == 'students.index' ? 'active' : '' }}"
+                    href="{{ route('students.index') }}">Estudiantes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::currentRouteName() == 'companies.index' ? 'active' : '' }}"
+                        href="{{ route('companies.index') }}">Empresas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}"
+                        href="{{ route('users.index') }}">Usuarios</a>
+                </li>
+                {{-- @endrole --}}
+
+            </ul>
+
+            <div class="me-2">
+                <span class="nav-link welcome">
+                    @auth
+                        @if (filter_var(auth()->user()->avatar, FILTER_VALIDATE_URL))
+                            <!-- Si el avatar es una URL, asumimos que es un usuario de Google -->
+                            <img src="{{ auth()->user()->avatar }}" alt="Avatar" width="50" height="50">
+                        @else
+                            <!-- Si no es una URL, asumimos que es un usuario normal y la imagen está en el storage -->
+                            <img src="{{ asset('storage/avatar/' . auth()->user()->avatar) }}" alt="Avatar" width="50" height="50">
+                        @endif
+                        Bienvenido {{ auth()->user()->name }}
+                    @endauth
+                </span>
+            </div>
+            <div class="me-3">
+                <a href="{{ route('logout') }}"><button type="button"
+                        class="btn btn-outline-primary">Salir</button></a>
+            </div>
+
+
+        </div>
+
+    </nav>
+    {{-- End Navbar --}}
     @yield('content')
 
     @yield('footer')
@@ -31,6 +96,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
+    <script src="js/main.js"></script>
 
     @yield('scripts')
 </body>

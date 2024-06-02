@@ -26,4 +26,6 @@ class Tutor extends Model
     public function trackings(){
         return $this->hasMany(Tracking::class);
     }
+
+    protected $fillable = ['name', 'apellidos', 'email', 'telefono_movil', 'user_id'];
 }

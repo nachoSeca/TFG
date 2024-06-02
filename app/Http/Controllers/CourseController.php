@@ -13,6 +13,8 @@ class CourseController extends Controller
     public function index()
     {
         //
+        $courses = Course::orderBy('nombre', 'ASC')->paginate(10);
+        return view('courses.homeCourse', compact('courses'));
     }
 
     /**
@@ -21,6 +23,7 @@ class CourseController extends Controller
     public function create()
     {
         //
+        return view('courses.createCourse');
     }
 
     /**
@@ -29,6 +32,13 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'nombre' => 'required',
+        ]);
+
+        Course::create($request->all());
+
+        return redirect()->route('courses.index')->with('success', 'Curso creado correctamente');
     }
 
     /**
@@ -42,24 +52,52 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $course)
+    public function edit($id)
     {
+        $course = Course::find($id);
+        // Verifica si el estudiante existe
+        if (!$course) {
+            abort(404); // Puedes personalizar el mensaje de error según tus necesidades
+        }
+
+        // Verifica si el usuario autenticado tiene permiso para editar este estudiante o si es un administrador
+        if ($course->user_id !== auth()->id() && !auth()->user()->hasRole('admin')) {
+            abort(403, 'No tienes permiso para editar este estudiante.'); // Acceso prohibido
+        }
         //
+        $course = Course::find($id);
+        return view('courses.editCourse', compact('course'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request,  $id)
     {
         //
+        $request->validate([
+            'nombre' => 'required',
+        ]);
+
+        Course::find($id)->update($request->all());
+
+        return redirect()->route('courses.index')->with('success', 'Curso actualizado correctamente');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Course $course)
+    public function destroy($id)
     {
         //
+        Course::find($id)->delete();
+        return redirect()->route('courses.index')->with('success', 'Curso eliminado correctamente');
     }
+
+    public function formDestroy(Course $course)
+    {
+        return view('courses.deleteCourse', compact('course'));
+    }
+
 }

@@ -1,0 +1,19 @@
+/* ESTILO DEL MENU */
+
+li .active {
+    border-bottom: 3px solid blue;
+}
+
+.navbar {
+    transition: background-color 0.7s ease;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    margin-bottom: 20px;
+}
+
+
+
+.navbar-scrolled {
+    background-color: rgba(41, 41, 41, 0.9); /* Cambia el color de fondo al desplazarse */
+}
+
