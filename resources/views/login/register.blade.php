@@ -44,7 +44,7 @@
             Already have an account?<span class="sign-up-link"><a onclick="window.location.href='{{ route('login') }}'">Log in</a></span>
         </p>
         <div class="buttons-container">
-            <div class="apple-login-button">
+            {{-- <div class="apple-login-button">
                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" class="apple-icon" viewBox="0 0 1024 1024"
                     height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                     <path d="M747.4 535.7c-.4-68.2 30.5-119.6 92.9-157.5-34.9-50-87.7-77.5-157.3-82.8-65.9-5.2-138 38.4-164.4 38.4-27.9
@@ -55,7 +55,7 @@
                     </path>
                 </svg>
                 <span>Sign up with Apple</span>
-            </div>
+            </div> --}}
             <div class="google-login-button">
                 <a href="{{ route('login-google') }}">
 
